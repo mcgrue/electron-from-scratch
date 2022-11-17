@@ -14,7 +14,7 @@
     "debug-in-chrome": "electron . --inspect-brk",
     "build-types": " TODO - ask DXM wtf to pass to tsc! ",
     "test": "jest",
-    "test-ts": "ts-jest"
+    "test-watch": "jest --watch"
   },
   "author": "",
   "license": "MIT",
