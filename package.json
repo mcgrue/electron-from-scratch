@@ -29,6 +29,7 @@
     "electron": "^19.0.4",
     "electron-builder": "^23.0.3",
     "esbuild": "^0.14.39",
+    "esbuild-copy-static-files": "^0.1.0",
     "eslint": "8.11.0",
     "jest": "^28.1.0",
     "ts-jest": "^28.0.4",

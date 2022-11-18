@@ -1,4 +1,5 @@
 const esbuild = require('esbuild');
+const copyStaticFiles = require('esbuild-copy-static-files');
 
 // TODO: make these settable from args
 const sourcemap = true;
@@ -54,6 +55,12 @@ const minify = false;
       platform: 'browser',
       entryPoints: ['src/app/index.ts'],
       outfile: 'dist/app/index.js',
+      plugins: [
+        copyStaticFiles({
+          src: 'src/app/index.html',
+          dest: 'dist/app/index.html',
+        }),
+      ],
       // plugins: [
       //   extensionResolverPlugin(['coffee', 'jadelet']),
       //   coffeeScriptPlugin({
