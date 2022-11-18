@@ -10,3 +10,6 @@ electronbuild-output/
 
 yarn-error.log
 .vscode
+
+.env
+target/

@@ -11,6 +11,7 @@
     "start": "electron .",
     "build": "yarn pre-build && echo DONE ESBUILD'N && echo START ELECTRON BUILDIN' && electron-builder",
     "pre-build": "node build-infrastructure/esbuild.js",
+    "iterate": "yarn pre-build && echo DONE ESBUILD'N && echo START && yarn start",
     "debug-in-chrome": "electron . --inspect-brk",
     "build-types": " TODO - ask DXM wtf to pass to tsc! ",
     "test": "jest",
@@ -19,7 +20,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
