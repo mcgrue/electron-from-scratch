@@ -53,7 +53,7 @@ const minify = false;
       watch,
       metafile: true,
       platform: 'browser',
-      entryPoints: ['src/app/index.ts'],
+      entryPoints: ['src/app/index.tsx'],
       outfile: 'dist/app/index.js',
       plugins: [
         copyStaticFiles({
