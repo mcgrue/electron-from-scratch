@@ -3882,9 +3882,9 @@ react-beautiful-dnd@^13.1.1:
     redux "^4.0.4"
     use-memo-one "^1.1.1"
 
-"react-dockable-ts@https://github.com/breadbros/react-dockable-ts#v0.0.1":
+"react-dockable-ts@https://github.com/breadbros/react-dockable-ts#v0.0.7":
   version "0.1.0"
-  resolved "https://github.com/breadbros/react-dockable-ts#0ce3277914365e9d4af9bdd8db95016a2eb2837f"
+  resolved "https://github.com/breadbros/react-dockable-ts#ed55007ccaad3a1135fb0256428c57e18a9213b6"
   dependencies:
     array-move "^4.0.0"
     autoprefixer "^10.4.13"

@@ -1,9 +1,9 @@
 import React from 'react';
 import {useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import Dockable from 'react-dockable-ts';
+import {Dockable, PanelState} from 'react-dockable-ts';
 
-function App() {
+function App(): JSX.Element {
   const [panelState, setPanelState] = useState<PanelState[]>([
     {
       windows: [
