@@ -3,64 +3,75 @@ import {useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {Dockable, PanelState} from 'react-dockable-ts';
 
-function App(): JSX.Element {
-  const mainLayout = [
+function App() {
+  const [documentPanelState, setDocumentPanelState] = useState<PanelState[]>([
     {
       windows: [
         {
           selected: 0,
-          widgets: ['Tools'],
+          widgets: ['Test_4', 'Test_5', 'Test_6'],
         },
       ],
-      size: 48,
-      minSize: 48,
-      maxSize: 48,
     },
+  ]);
+  const [auxPanelState, setAuxPanelState] = useState<PanelState[]>([
     {
       windows: [
         {
           selected: 0,
-          widgets: ['Map'],
+          widgets: ['Test_8', 'Test_9', 'Test_10', 'Test_11'],
         },
       ],
     },
-    {
-      windows: [
-        {
-          selected: 0,
-          widgets: ['TestE', 'TestF'],
-        },
-        {
-          selected: 0,
-          widgets: ['TestG', 'TestH'],
-        },
-        {
-          selected: 0,
-          widgets: ['TestI', 'TestJ'],
-        },
-      ],
-    },
-  ];
-  const [panelState, setPanelState] = useState<PanelState[]>(mainLayout);
+  ]);
+
+  function MenuBar() {
+    return <div></div>;
+  }
+
+  function ToolRibbon() {
+    return <div></div>;
+  }
+
+  function ToolBar() {
+    return <div></div>;
+  }
+
+  function StatusBar() {
+    return <div></div>;
+  }
 
   return (
     <div style={{height: '100vh', backgroundColor: 'red'}}>
-      <Dockable
-        initialState={panelState}
-        onUpdate={(state) => {
-          setPanelState(state);
-        }}
-        spacing={3}
-      >
-        <Widget id="Tools" title="Test A" />
-        <Widget id="Map" title="Test B" />
-        <Widget id="TestE" title="Test E" />
-        <Widget id="TestF" title="Test F" />
-        <Widget id="TestG" title="Test G" />
-        <Widget id="TestH" title="Test H" />
-        <Widget id="TestI" title="Test I" />
-        <Widget id="TestJ" title="Test J" />
-      </Dockable>
+      <MenuBar />
+      <ToolRibbon />
+      <div>
+        <ToolBar />
+        <Dockable
+          initialState={documentPanelState}
+          onUpdate={(state) => {
+            setDocumentPanelState(state);
+          }}
+          spacing={3}
+        >
+          <Widget id="Test_4" title="Map Document" />
+          <Widget id="Test_5" title="Text Document" />
+          <Widget id="Test_6" title="Sprite Document" />
+        </Dockable>
+        <Dockable
+          initialState={auxPanelState}
+          onUpdate={(state) => {
+            setAuxPanelState(state);
+          }}
+          spacing={3}
+        >
+          <Widget id="Test_8" title="Panel 1" />
+          <Widget id="Test_9" title="Panel 2" />
+          <Widget id="Test_10" title="Panel 3" />
+          <Widget id="Test_11" title="Panel 4" />
+        </Dockable>
+      </div>
+      <StatusBar />
     </div>
   );
 }

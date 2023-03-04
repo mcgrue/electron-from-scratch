@@ -10,6 +10,7 @@ app.on('ready', (event) => {
       // enableRemoteModule: true,
     },
   });
+  window.setMenu(null); // No system menu.
   window.loadFile('dist/app/index.html'); // cwd is wherever you called `electron start` from.
 
   if (dotenv.parsed.BREADITOR_DEV_MODE) {
