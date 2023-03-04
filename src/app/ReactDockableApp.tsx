@@ -4,7 +4,7 @@ import {createRoot} from 'react-dom/client';
 import {Dockable, PanelState} from 'react-dockable-ts';
 
 function App(): JSX.Element {
-  const [panelState, setPanelState] = useState<PanelState[]>([
+  const mainLayout = [
     {
       windows: [
         {
@@ -40,7 +40,8 @@ function App(): JSX.Element {
         },
       ],
     },
-  ]);
+  ];
+  const [panelState, setPanelState] = useState<PanelState[]>(mainLayout);
 
   return (
     <div style={{height: '100vh', backgroundColor: 'red'}}>
