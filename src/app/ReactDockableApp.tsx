@@ -9,7 +9,34 @@ function App(): JSX.Element {
       windows: [
         {
           selected: 0,
-          widgets: ['TestA', 'TestB'],
+          widgets: ['Tools'],
+        },
+      ],
+      size: 48,
+      minSize: 48,
+      maxSize: 48,
+    },
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['Map'],
+        },
+      ],
+    },
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['TestE', 'TestF'],
+        },
+        {
+          selected: 0,
+          widgets: ['TestG', 'TestH'],
+        },
+        {
+          selected: 0,
+          widgets: ['TestI', 'TestJ'],
         },
       ],
     },
@@ -24,8 +51,14 @@ function App(): JSX.Element {
         }}
         spacing={3}
       >
-        <Widget id="TestA" title="Test A" />
-        <Widget id="TestB" title="Test B" />
+        <Widget id="Tools" title="Test A" />
+        <Widget id="Map" title="Test B" />
+        <Widget id="TestE" title="Test E" />
+        <Widget id="TestF" title="Test F" />
+        <Widget id="TestG" title="Test G" />
+        <Widget id="TestH" title="Test H" />
+        <Widget id="TestI" title="Test I" />
+        <Widget id="TestJ" title="Test J" />
       </Dockable>
     </div>
   );
