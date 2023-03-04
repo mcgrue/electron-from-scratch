@@ -24,8 +24,8 @@
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-dockable": "breadbros/react-dockable-ts"
+    "react-dockable-ts": "https://github.com/breadbros/react-dockable-ts#v0.0.1",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
