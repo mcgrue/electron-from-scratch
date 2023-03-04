@@ -1,3 +1,3 @@
-import {foo} from './hello';
+import {init} from './ReactDockableApp';
 
-foo();
+init();

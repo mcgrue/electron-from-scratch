@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
     <style>
-      html,
+      /* BEGIN: react-dockable-demo */
       body {
-        height: 100%;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+          'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+          'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      body {
-        background-color: aqua;
+      code {
+        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+          monospace;
       }
+
+      /* END: react-dockable-demo */
     </style>
   </head>
   <body>
-    <div id="react-mountpoint">I am a react mountpoint</div>
+    <div id="react-root">I am also a react mountpoint</div>
   </body>
   <script src="./index.js"></script>
   <!-- ^^^ this is what the whole app transpiled to, lol-->
