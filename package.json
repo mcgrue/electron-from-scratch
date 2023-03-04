@@ -23,9 +23,9 @@
     "dotenv": "^16.0.1",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
-    "react-dockable": "breadbros/react-dockable-ts",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-dockable": "breadbros/react-dockable-ts"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
