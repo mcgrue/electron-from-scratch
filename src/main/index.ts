@@ -1,25 +1,45 @@
-import {BrowserWindow, app} from 'electron';
+import {BrowserWindow, app, ipcMain} from 'electron';
+const path = require('path');
 const dotenv = require('dotenv').config();
 
-let window: BrowserWindow;
+let mainWindow: BrowserWindow;
 
-app.on('ready', (event) => {
-  window = new BrowserWindow({
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    frame: false, // no title bar
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, '../app/', 'preload.js'), // for all those main/renderer bridge things
       // enableRemoteModule: true,
     },
   });
-  window.setMenu(null); // No system menu.
-  window.loadFile('dist/app/index.html'); // cwd is wherever you called `electron start` from.
+  mainWindow.setMenu(null); // No system menu.
+  mainWindow.loadFile('dist/app/index.html'); // cwd is wherever you called `electron start` from.
+
+  ipcMain.on('app-minimize', () => {
+    console.log('app-minimize');
+    mainWindow.minimize();
+  });
+  ipcMain.on('app-maximize', () => {
+    console.log('app-maximize');
+    if (mainWindow.isMaximized()) mainWindow.unmaximize();
+    else mainWindow.maximize();
+  });
+  ipcMain.on('app-close', () => {
+    mainWindow.close();
+  });
+
+  mainWindow.on('closed', function () {
+    if (process.platform !== 'darwin') app.quit();
+  });
 
   if (dotenv.parsed.BREADITOR_DEV_MODE) {
     const devtoolsWindow = new BrowserWindow();
-    window.webContents.setDevToolsWebContents(devtoolsWindow.webContents);
-    window.webContents.openDevTools({mode: 'detach'});
+    mainWindow.webContents.setDevToolsWebContents(devtoolsWindow.webContents);
+    mainWindow.webContents.openDevTools({mode: 'detach'});
 
     // Set the devtools position when the parent window has finished loading.
-    window.webContents.once('did-finish-load', function () {
+    mainWindow.webContents.once('did-finish-load', function () {
       console.log('Main window did-finish-load.');
 
       if (
@@ -35,8 +55,8 @@ app.on('ready', (event) => {
         const w = parseInt(dotenv.parsed.MAIN_WINDOW_W, 10);
         const h = parseInt(dotenv.parsed.MAIN_WINDOW_H, 10);
 
-        window.setPosition(x, y);
-        window.setSize(w, h);
+        mainWindow.setPosition(x, y);
+        mainWindow.setSize(w, h);
       }
     });
 
@@ -64,4 +84,16 @@ app.on('ready', (event) => {
   } else {
     console.log('Lol, Production.');
   }
+}
+
+app.on('ready', () => {
+  createWindow();
+
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
+
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit();
 });
