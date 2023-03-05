@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
-    "fs": "^0.0.1-security",
+    "is-electron": "^2.2.2",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dockable-ts": "https://github.com/breadbros/react-dockable-ts#v0.0.7",
@@ -36,8 +36,11 @@
     "electron-builder": "^23.0.3",
     "esbuild": "^0.14.39",
     "esbuild-copy-static-files": "^0.1.0",
+    "esbuild-css-modules-plugin": "^2.7.1",
+    "esbuild-plugin-copy": "^2.0.2",
     "eslint": "8.11.0",
     "jest": "^28.1.0",
+    "rimraf": "^4.3.0",
     "ts-jest": "^28.0.4",
     "typescript": "^4.6.2"
   },
