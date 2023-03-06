@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 
 class WindowProxy extends React.Component {
@@ -14,6 +15,24 @@ class WindowProxy extends React.Component {
   render() {
     return <>{this.props.children}</>;
   }
+}
+*/
+import React, {useEffect} from 'react';
+
+function WindowProxy(props) {
+  useEffect(() => {
+    const {events} = props;
+    for (const property in events) {
+      window.addEventListener(property, events[property]);
+    }
+    return () => {
+      for (const property in events) {
+        window.removeEventListener(property, events[property]);
+      }
+    };
+  }, [props.events]);
+
+  return <>{props.children}</>;
 }
 
 export {WindowProxy};
