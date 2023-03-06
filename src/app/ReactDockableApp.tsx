@@ -26,11 +26,9 @@ function App() {
         }}
       >
         <MenuBar
-          dispatch={
-            {
-              /*this.dispatch*/
-            }
-          }
+          dispatch={(foo) => {
+            console.log('I am a fake dispatch in ReactDockableApp.  Yay.', foo);
+          }}
           widgets={
             {
               /*this.getWidgets()

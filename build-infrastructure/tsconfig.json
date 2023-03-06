@@ -18,8 +18,16 @@
     "strict": true,
     "target": "esnext",
 
-    "outDir": "../main"
+    "outDir": "../main",
+
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "extensions": ["css", "module.css"]
+      }
+    ]
   },
   "exclude": ["node_modules/**"],
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.css"],
+  "typeRoots": ["./node_modules/@types", "./typings"]
 }

@@ -7,33 +7,43 @@ import isElectron from 'is-electron';
 
 const electron = {ipcRenderer: {send: () => {}}};
 
-class MenuBar extends React.Component {
-  state = {
+interface MenuBarProps {
+  dispatch: ({}: any) => void;
+  widgets: {};
+  hidden: {};
+}
+
+const MenuBar: React.FC<MenuBarProps> = (props) => {
+  let state = {
     selected: null,
     contextPos: null,
   };
 
-  handleMouseDown = (e, i) => {
+  let setState = (lol: any) => {
+    console.log('MenuBar.setState', lol);
+  };
+
+  let handleMouseDown = (e, i) => {
     e.stopPropagation();
     let box = e.target.getBoundingClientRect();
-    if (this.state.selected === null)
-      this.setState({
+    if (state.selected === null)
+      setState({
         selected: i,
         contextPos: {x: box.x, y: box.y + box.height},
       });
-    else this.setState({selected: null});
+    else setState({selected: null});
   };
 
-  handleMenuSelect = (e, i) => {
+  let handleMenuSelect = (e, i) => {
     let box = e.target.getBoundingClientRect();
-    if (this.state.selected !== null)
-      this.setState({
+    if (state.selected !== null)
+      setState({
         selected: i,
         contextPos: {x: box.x, y: box.y + box.height},
       });
   };
 
-  renderTitle = (draw = true) => {
+  function renderTitle(draw = true) {
     return (
       draw && (
         <>
@@ -44,9 +54,9 @@ class MenuBar extends React.Component {
         </>
       )
     );
-  };
+  }
 
-  getMenu() {
+  function getMenu() {
     return [
       {
         name: (
@@ -79,7 +89,7 @@ class MenuBar extends React.Component {
             type: 'actions',
             actions: {
               'New Document': () => {
-                this.props.dispatch({
+                props.dispatch({
                   type: 'CREATE_NEW_DOCUMENT',
                   title: 'New Document',
                   width: 512,
@@ -139,7 +149,7 @@ class MenuBar extends React.Component {
             type: 'actions',
             actions: {
               'New Document View': () => {
-                this.props.dispatch({
+                props.dispatch({
                   type: 'CREATE_NEW_DOCUMENT_VIEW',
                 });
               },
@@ -147,7 +157,7 @@ class MenuBar extends React.Component {
           },
           {
             type: 'bools',
-            options: this.getWidgetVisibilityOptions(),
+            options: getWidgetVisibilityOptions(),
           },
         ],
       },
@@ -167,7 +177,7 @@ class MenuBar extends React.Component {
     ];
   }
 
-  getWidgetVisibilityOptions() {
+  function getWidgetVisibilityOptions() {
     // test: {
     //   function: () => {},
     //   value: true
@@ -194,47 +204,49 @@ class MenuBar extends React.Component {
     return {};
   }
 
-  render() {
-    return (
-      <div className={css.container}>
-        {/* Menu Items */}
-        <div className={css.menu} style={{zIndex: 1000}}>
-          {this.getMenu().map((control, i) => (
-            <div
-              key={i}
-              className={[
-                css.menuItem,
-                this.state.selected === i ? css.selected : null,
-              ].join(' ')}
-              onMouseDown={() => {
-                /*(e) => this.handleMouseDown(e, i)*/
-              }}
-              onMouseOver={() => {
-                /*(e) => this.handleMenuSelect(e, i)*/
-              }}
-            >
-              {control.name}
-            </div>
-          ))}
-        </div>
-        {/* Title bar */}
-        <div className={css.dragBar}>{this.renderTitle(false)}</div>
-
-        {/* Window COntrols */}
-        {isElectron() && <WindowsControls />}
-        {/* Context Menu */}
-        {this.state.selected !== null && (
-          <ContextMenu
-            left={this.state.contextPos.x}
-            top={this.state.contextPos.y}
-            actions={this.getMenu()[this.state.selected].actions}
-            onClickOut={(e) => this.setState({selected: null})}
-          />
-        )}
+  return (
+    <div className={css.container}>
+      {/* Menu Items */}
+      <div className={css.menu} style={{zIndex: 1000}}>
+        {getMenu().map((control, i) => (
+          <div
+            key={i}
+            className={[
+              css.menuItem,
+              state.selected === i ? css.selected : null,
+            ].join(' ')}
+            onMouseDown={() => {
+              /*(e) => this.handleMouseDown(e, i)*/
+            }}
+            onMouseOver={() => {
+              /*(e) => this.handleMenuSelect(e, i)*/
+            }}
+          >
+            {control.name}
+          </div>
+        ))}
       </div>
-    );
-  }
-}
+      {/* Title bar */}
+      <div className={css.dragBar}>{renderTitle(false)}</div>
+
+      {/* Window COntrols */}
+      {isElectron() && <WindowsControls />}
+      {/* Context Menu */}
+      {state.selected !== null && (
+        <ContextMenu
+          left={state.contextPos.x}
+          top={state.contextPos.y}
+          onUpdate={(foo) => {
+            console.log('ReactDockable says that onUpdate is required?', foo);
+          }}
+          initialState={[]}
+          actions={getMenu()[state.selected].actions}
+          onClickOut={(e) => setState({selected: null})}
+        />
+      )}
+    </div>
+  );
+};
 
 function Logo() {
   return (
