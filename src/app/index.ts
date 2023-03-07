@@ -12,7 +12,12 @@ function appendGlobalCss() {
   head.appendChild(style);
 }
 
-appendGlobalCss();
-init();
+function startApp() {
+  appendGlobalCss();
+  init();
+}
 
-export {appendGlobalCss};
+// @ts-ignore
+window['startApp'] = startApp;
+
+export {appendGlobalCss, startApp};

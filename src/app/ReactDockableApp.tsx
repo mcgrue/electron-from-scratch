@@ -63,6 +63,7 @@ function Widget({id, title}: WidgetTypes) {
 
 export function init() {
   const domNode = document.getElementById('react-root') as Element;
+  console.log(domNode, 'domNode');
   const root = createRoot(domNode);
 
   root.render(<App />);

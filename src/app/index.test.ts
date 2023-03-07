@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import {appendGlobalCss} from './index';
 import {JSDOM} from 'jsdom';
 
@@ -7,7 +10,9 @@ let dom: any;
 // Set up the testing environment before each test
 beforeEach(() => {
   // Create a new JSDOM instance
-  dom = new JSDOM('<html><body></body></html>');
+  dom = new JSDOM(
+    '<html><head></head><body><div id="react-root"></div></body></html>',
+  );
 
   // Set the global window and document objects to the JSDOM instances
   global.window = dom.window;
@@ -22,9 +27,10 @@ afterEach(() => {
 
 test('appendGlobalCss', () => {
   // Get all the <style> elements within the <head> element
-  const styleElements = document.head.querySelectorAll('style');
+  let styleElements = document.head.querySelectorAll('style');
 
-  expect(styleElements.length).toBe(0);
+  const oldLength = styleElements.length;
   appendGlobalCss();
-  expect(styleElements.length).toBe(1);
+  styleElements = document.head.querySelectorAll('style');
+  expect(styleElements.length).toBe(oldLength + 1);
 });

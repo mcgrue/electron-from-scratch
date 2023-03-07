@@ -14,7 +14,7 @@
     "iterate": "yarn pre-build && echo DONE ESBUILD'N && echo START && yarn start",
     "debug-in-chrome": "electron . --inspect-brk",
     "build-types": " TODO - ask DXM wtf to pass to tsc! ",
-    "test": "jest",
+    "test": "jest  --verbose --runInBand --detectOpenHandles --forceExit",
     "test-watch": "jest --watch"
   },
   "author": "",
