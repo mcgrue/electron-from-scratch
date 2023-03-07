@@ -1,11 +1,11 @@
 import React from 'react';
+// @ts-ignore
 import css from './MenuBar.module.css';
 import ContextMenu from 'react-dockable-ts';
 import isElectron from 'is-electron';
 //import {ipcRenderer} from 'electron';
 //const electron = isElectron() ? {ipcRenderer} : {ipcRenderer: {send: () => {}}};
-
-const electron = {ipcRenderer: {send: () => {}}};
+//const electron = {ipcRenderer: {send: () => {}}};
 
 interface MenuBarProps {
   dispatch: ({}: any) => void;
@@ -16,13 +16,14 @@ interface MenuBarProps {
 const MenuBar: React.FC<MenuBarProps> = (props) => {
   let state = {
     selected: null,
-    contextPos: null,
+    contextPos: {x: 0, y: 0},
   };
 
   let setState = (lol: any) => {
     console.log('MenuBar.setState', lol);
   };
 
+  /*
   let handleMouseDown = (e, i) => {
     e.stopPropagation();
     let box = e.target.getBoundingClientRect();
@@ -42,6 +43,7 @@ const MenuBar: React.FC<MenuBarProps> = (props) => {
         contextPos: {x: box.x, y: box.y + box.height},
       });
   };
+  */
 
   function renderTitle(draw = true) {
     return (
@@ -241,7 +243,7 @@ const MenuBar: React.FC<MenuBarProps> = (props) => {
           }}
           initialState={[]}
           actions={getMenu()[state.selected].actions}
-          onClickOut={(e) => setState({selected: null})}
+          onClickOut={() => setState({selected: null})}
         />
       )}
     </div>
@@ -276,6 +278,7 @@ function WindowsControls() {
       <div
         className={css.button}
         onClick={() => {
+          // @ts-ignore
           window.electronAPI.appMinimize();
         }}
       >
@@ -286,6 +289,7 @@ function WindowsControls() {
       <div
         className={css.button}
         onClick={() => {
+          // @ts-ignore
           window.electronAPI.appMaximize();
         }}
       >
@@ -303,6 +307,7 @@ function WindowsControls() {
       <div
         className={[css.close, css.button].join(' ')}
         onClick={() => {
+          // @ts-ignore
           window.electronAPI.appClose();
         }}
       >

@@ -1,5 +1,6 @@
 import {init} from './ReactDockableApp';
 
+// @ts-ignore
 import css from './globals.module.css';
 
 function appendGlobalCss() {

@@ -1,15 +1,11 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/build-infrastructure/tsconfig.json',
     },
   },
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-
-  /*transform: {
-    '^(\\.[jt]sx?$)': 'jest-css-modules-transform',
+  transform: {
+    '^.+\\.[tj]sx?$': ['ts-jest', {}],
+    '^.+\\.css?$': ['<rootDir>/node_modules/jest-css-modules-transform', {}],
   },
-  */
 };

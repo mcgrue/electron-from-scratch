@@ -19,7 +19,7 @@ class WindowProxy extends React.Component {
 */
 import React, {useEffect} from 'react';
 
-function WindowProxy(props) {
+function WindowProxy(props: any) {
   useEffect(() => {
     const {events} = props;
     for (const property in events) {
