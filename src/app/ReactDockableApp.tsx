@@ -1,10 +1,9 @@
 import React from 'react';
-import {useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import {Dockable, PanelState} from 'react-dockable-ts';
 import {WindowProxy} from './layout/components/WindowProxy';
 import {MenuBar} from './layout/components/MenuBar';
 
+// @ts-ignore
 import css from './ReactDockableApp.module.css';
 
 function App() {
@@ -50,17 +49,20 @@ function App() {
   );
 }
 
+/*
 type WidgetTypes = {
   id: string;
   title: string;
 };
 
+
 function Widget({id, title}: WidgetTypes) {
   return <div>{title} test</div>;
 }
+*/
 
 export function init() {
-  const domNode = document.getElementById('react-root');
+  const domNode = document.getElementById('react-root') as Element;
   const root = createRoot(domNode);
 
   root.render(<App />);
