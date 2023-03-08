@@ -20,7 +20,20 @@ function App() {
       windows: [
         {
           selected: 0,
-          widgets: ['TestA', 'TestB'],
+          widgets: ['documents-container'],
+          hideTabs: true,
+        },
+      ],
+    },
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['TestA'],
+        },
+        {
+          selected: 0,
+          widgets: ['TestB'],
         },
       ],
     },
@@ -114,8 +127,8 @@ function App() {
               spacing={3}
             >
               <div
-                title={'Documents'}
-                id={'documents'}
+                title={'Documents (Should Be Hidden)'}
+                id={'documents-container'}
                 style={{
                   display: 'flex',
                   flexGrow: 1,
@@ -124,7 +137,6 @@ function App() {
                 }}
               >
                 <Dockable
-                  key="documents"
                   initialState={docPanelState}
                   onUpdate={(state) => {
                     setDocPanelState(state);
