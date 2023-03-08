@@ -11,7 +11,7 @@
     "start": "electron .",
     "build": "yarn pre-build && echo DONE ESBUILDN && echo START ELECTRON BUILDIN && electron-builder",
     "pre-build": "node build-infrastructure/esbuild.js",
-    "iterate": "yarn pre-build && echo DONE ESBUILD'N && echo START && yarn start",
+    "iterate": "yarn pre-build && echo DONE ESBUILDN && echo START && yarn start",
     "debug-in-chrome": "electron . --inspect-brk",
     "build-types": " TODO - ask DXM wtf to pass to tsc! ",
     "test": "jest  --verbose --runInBand --detectOpenHandles --forceExit",
