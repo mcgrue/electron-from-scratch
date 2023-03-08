@@ -26,6 +26,17 @@ function App() {
     },
   ]);
 
+  const [docPanelState, setDocPanelState] = useState<PanelState[]>([
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['DocA', 'DocB'],
+        },
+      ],
+    },
+  ]);
+
   return (
     <WindowProxy
       events={
@@ -102,6 +113,28 @@ function App() {
               }}
               spacing={3}
             >
+              <div
+                title={'Documents'}
+                id={'documents'}
+                style={{
+                  display: 'flex',
+                  flexGrow: 1,
+                  width: '100%',
+                  height: '100%',
+                }}
+              >
+                <Dockable
+                  key="documents"
+                  initialState={docPanelState}
+                  onUpdate={(state) => {
+                    setDocPanelState(state);
+                  }}
+                >
+                  <Widget id="DocA" title="Doc A" />
+                  <Widget id="DocB" title="Doc B" />
+                </Dockable>
+              </div>
+
               <Widget id="TestA" title="Test A" />
               <Widget id="TestB" title="Test B" />
             </Dockable>
