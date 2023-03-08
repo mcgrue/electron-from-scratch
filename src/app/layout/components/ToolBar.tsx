@@ -2,7 +2,7 @@ import React from 'react';
 // @ts-ignore
 import css from './ToolBar.module.css';
 
-import {TOOLS} from '../../tools/constants';
+import {TOOLS} from '../../breaditor/tools/constants';
 import * as icons from '../../ui/icons';
 
 interface ToolBarProps {

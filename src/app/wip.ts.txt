@@ -1,0 +1,204 @@
+const isDocumentOpen = () => {
+  return true;
+};
+
+const getCurrentTool = () => {
+  return TOOLS.Brush;
+};
+
+const dispatch = (arg: any) => {
+  console.log('Top level dispathc boyeeee!', arg);
+};
+
+
+const panelState1 = {
+  size: '100%',
+  minSize: 277,
+  maxSize: 0,
+  windows: [
+    {
+      size: '100%',
+      selected: 0,
+      widgets: ['documents'],
+      minSize: 30,
+      hideTabs: true,
+      style: {
+        backgroundColor: 'transparent',
+        margin: 0,
+        boxShadow: 'none',
+        borderRadius: 0,
+      },
+    },
+    {selected: 0, widgets: ['tp-6'], minSize: 68, size: 68},
+  ],
+};
+
+const panelState2 = {
+  size: 500,
+  minSize: 277,
+  windows: [
+    {selected: 0, widgets: ['tp-1', 'tp-2'], size: 320},
+    {selected: 0, widgets: ['tp-3', 'tp-4']},
+    {selected: 0, widgets: ['tp-5']},
+  ],
+  maxSize: 0,
+};
+
+const myPanelStateArray: PanelState[] = [panelState1, panelState2];
+
+const myDocWorkspace2 = [
+  {
+    minSize: 277,
+    size: 452.96875,
+    windows: [
+      {
+        size: 434,
+        selected: 0,
+        widgets: ['documents'],
+        minSize: 38,
+        hideTabs: true,
+        style: {
+          backgroundColor: 'transparent',
+          margin: 0,
+          boxShadow: 'none',
+          borderRadius: 0,
+        },
+        maxSize: 0,
+        resize: 'stretch',
+      },
+      {
+        selected: 0,
+        widgets: ['tp-1'],
+        minSize: 78,
+        size: 78,
+        maxSize: 0,
+        resize: 'stretch',
+      },
+    ],
+    maxSize: 0,
+    resize: 'stretch',
+  },
+  {
+    size: 385.03125,
+    minSize: 277,
+    windows: [
+      {
+        selected: 0,
+        widgets: ['tp-2', 'tp-3'],
+        size: 196.15625,
+        minSize: 38,
+        maxSize: 0,
+        resize: 'stretch',
+      },
+      {
+        selected: 0,
+        widgets: ['tp-4', 'tp-5'],
+        minSize: 38,
+        size: 156.921875,
+        maxSize: 0,
+        resize: 'stretch',
+      },
+      {
+        selected: 0,
+        widgets: ['tp-6'],
+        minSize: 78,
+        size: 156.921875,
+        maxSize: 0,
+        resize: 'stretch',
+      },
+    ],
+    maxSize: 0,
+    resize: 'stretch',
+  },
+];
+
+const myDocumentWorkspace = [
+  {
+    windows: [
+      {
+        selected: 0,
+        widgets: [0],
+        minSize: 38,
+        size: 434,
+        maxSize: 0,
+        resize: 'stretch',
+      },
+    ],
+    size: 452.96875,
+    minSize: 48,
+    maxSize: 0,
+    resize: 'stretch',
+  },
+];
+
+const getState = () => {
+  return {
+    documents: {
+      activeDocument: 0,
+      workspace: myDocumentWorkspace,
+    },
+    tools: {
+      brush: {
+        aa: true,
+        flow: 50,
+        flowPressure: false,
+        hardness: 0,
+        size: 64,
+        sizePressure: true,
+        spacing: 20,
+      },
+    },
+    selectedTool: 0,
+    widgets: {
+      hidden: {},
+    },
+
+    workspace: myPanelStateArray,
+  };
+};
+
+const getWidgets = () => {
+  if (!isDocumentOpen()) return [];
+  return (
+    <>
+      <DocumentsContainer
+        key="documents"
+        state={getState()}
+        dispatch={dispatch}
+        currentTool={getCurrentTool()}
+        unhidable
+      />
+
+      <TestPanel
+        id="tp-1"
+        title="Panel 1"
+        text="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book."
+      />
+      <TestPanel
+        id="tp-2"
+        title="Panel 2"
+        text="The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content."
+      />
+      <TestPanel
+        id="tp-3"
+        title="Panel 3"
+        text="The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software."
+      />
+      <TestPanel
+        id="tp-4"
+        title="Panel 4"
+        text="Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum."
+      />
+      <TestPanel
+        id="tp-5"
+        title="Panel 5"
+        text="The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin."
+      />
+      <TestPanel
+        id="tp-6"
+        title="Panel 6"
+        text="This space intentionally left blank."
+      />
+    </>
+  ).props.children;
+};

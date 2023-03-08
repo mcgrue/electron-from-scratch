@@ -2,7 +2,7 @@ import React from 'react';
 import {ReactNode} from 'react';
 import {InputScalar} from '../../ui/widgets/InputScalar';
 import {InputButton} from '../../ui/widgets/InputButton';
-import {TOOLS} from '../../tools/constants';
+import {TOOLS} from '../../breaditor/tools/constants';
 
 // @ts-ignore
 import css from './PropertyBar.module.css';
