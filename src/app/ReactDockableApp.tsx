@@ -1,16 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {WindowProxy} from './layout/components/WindowProxy';
 import {MenuBar} from './layout/components/MenuBar';
 import {ToolBar} from './layout/components/ToolBar';
 import {PropertyBar} from './layout/components/PropertyBar';
 import {StatusBar} from './layout/components/StatusBar';
+// import {DocumentsContainer} from './layout/components/DocumentsContainer';
 // @ts-ignore
 import css from './ReactDockableApp.module.css';
 
-import {TOOLS} from './tools/constants';
+import {TOOLS} from './breaditor/tools/constants';
+
+import {Dockable, PanelState} from 'react-dockable-ts';
+//import {TestPanel} from './breaditor/panels/TestPanel';
 
 function App() {
+  const [panelState, setPanelState] = useState<PanelState[]>([
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['TestA', 'TestB'],
+        },
+      ],
+    },
+  ]);
+
   return (
     <WindowProxy
       events={
@@ -80,13 +95,16 @@ function App() {
               // margin: 3,
             }}
           >
-            <div
-              style={{
-                backgroundColor: 'red',
-                width: '100%',
-                height: '100%',
+            <Dockable
+              initialState={panelState}
+              onUpdate={(state) => {
+                setPanelState(state);
               }}
-            ></div>
+              spacing={3}
+            >
+              <Widget id="TestA" title="Test A" />
+              <Widget id="TestB" title="Test B" />
+            </Dockable>
           </div>
         </div>
         <StatusBar
@@ -102,17 +120,14 @@ function App() {
   );
 }
 
-/*
 type WidgetTypes = {
   id: string;
   title: string;
 };
 
-
 function Widget({id, title}: WidgetTypes) {
-  return <div>{title} test</div>;
+  return <div key={id}>{title} test</div>;
 }
-*/
 
 export function init() {
   const domNode = document.getElementById('react-root') as Element;

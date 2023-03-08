@@ -1,6 +1,6 @@
 import React from 'react';
 import {ReactNode} from 'react';
-import {TOOLS} from '../../tools/constants';
+import {TOOLS} from '../../breaditor/tools/constants';
 
 // @ts-ignore
 import css from './PropertyBar.module.css';
