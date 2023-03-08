@@ -4,6 +4,7 @@ import {WindowProxy} from './layout/components/WindowProxy';
 import {MenuBar} from './layout/components/MenuBar';
 import {ToolBar} from './layout/components/ToolBar';
 import {PropertyBar} from './layout/components/PropertyBar';
+import {StatusBar} from './layout/components/StatusBar';
 // @ts-ignore
 import css from './ReactDockableApp.module.css';
 
@@ -87,6 +88,14 @@ function App() {
             ></div>
           </div>
         </div>
+        <StatusBar
+          state={{}}
+          dispatch={(bar) => {
+            console.log('Another fake dispatch that was passed: ', bar);
+          }}
+          tool={TOOLS.Brush}
+          view={{}}
+        />
       </div>
     </WindowProxy>
   );
