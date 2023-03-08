@@ -62,6 +62,7 @@ function App() {
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'row',
+            height: 'calc(100vh - 128px)',
           }}
         >
           <ToolBar
