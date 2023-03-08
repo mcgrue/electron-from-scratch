@@ -2,6 +2,7 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {WindowProxy} from './layout/components/WindowProxy';
 import {MenuBar} from './layout/components/MenuBar';
+import {ToolBar} from './layout/components/ToolBar';
 
 // @ts-ignore
 import css from './ReactDockableApp.module.css';
@@ -44,6 +45,38 @@ function App() {
             }
           }
         />
+        <div
+          style={{
+            flexGrow: 1,
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        >
+          <ToolBar
+            selected={{}}
+            dispatch={(foo) => {
+              console.log('A fake dispatch that was passed: ', foo);
+            }}
+          />
+          <div
+            style={{
+              flexGrow: 1,
+              maxWidth: `calc(100% - 47px)`,
+
+              margin: '1px 0 0 1px',
+              // margin: 3,
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: 'red',
+                width: '100%',
+                height: '100%',
+              }}
+            ></div>
+          </div>
+        </div>
       </div>
     </WindowProxy>
   );

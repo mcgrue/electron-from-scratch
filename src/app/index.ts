@@ -18,6 +18,7 @@ function startApp() {
 }
 
 // @ts-ignore
-window['startApp'] = startApp;
+window['startApp'] = startApp; //we call this in the index.html after loading to bootstrap.
+// we don't call it here so we don't init anything for unit testing
 
 export {appendGlobalCss, startApp};
