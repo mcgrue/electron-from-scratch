@@ -3,9 +3,11 @@ import {createRoot} from 'react-dom/client';
 import {WindowProxy} from './layout/components/WindowProxy';
 import {MenuBar} from './layout/components/MenuBar';
 import {ToolBar} from './layout/components/ToolBar';
-
+import {PropertyBar} from './layout/components/PropertyBar';
 // @ts-ignore
 import css from './ReactDockableApp.module.css';
+
+import {TOOLS} from './tools/constants';
 
 function App() {
   return (
@@ -44,6 +46,14 @@ function App() {
               /*this.getState().widgets.hidden*/
             }
           }
+        />
+        <PropertyBar
+          state={{}}
+          dispatch={(bar) => {
+            console.log('Another fake dispatch that was passed: ', bar);
+          }}
+          tool={TOOLS.Brush}
+          view={{}}
         />
         <div
           style={{

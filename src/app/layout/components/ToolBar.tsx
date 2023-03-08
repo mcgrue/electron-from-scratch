@@ -2,22 +2,7 @@ import React from 'react';
 // @ts-ignore
 import css from './ToolBar.module.css';
 
-const TOOLS = {
-  Brush: 0,
-  Pencil: 1,
-  Eraser: 2,
-  Dither: 3,
-  SelectRect: 4,
-  Pan: 5,
-  Line: 6,
-  Fill: 7,
-  Eyedropper: 8,
-  Zoom: 9,
-  Undo: 10,
-  Redo: 11,
-};
-
-// Icons
+import {TOOLS} from '../../tools/constants';
 import * as icons from '../../ui/icons';
 
 interface ToolBarProps {
