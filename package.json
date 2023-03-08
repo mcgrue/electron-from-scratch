@@ -24,7 +24,7 @@
     "is-electron": "^2.2.2",
     "path": "^0.12.7",
     "react": "^18.2.0",
-    "react-dockable-ts": "https://github.com/breadbros/react-dockable-ts#v0.0.10",
+    "react-dockable-ts": "https://github.com/breadbros/react-dockable-ts#v0.0.11",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
