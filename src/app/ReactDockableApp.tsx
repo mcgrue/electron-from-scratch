@@ -29,11 +29,15 @@ function App() {
       windows: [
         {
           selected: 0,
-          widgets: ['TestA'],
+          widgets: ['PanelA', 'PanelB'],
         },
         {
           selected: 0,
-          widgets: ['TestB'],
+          widgets: ['PanelC', 'PanelD', 'PanelE'],
+        },
+        {
+          selected: 0,
+          widgets: ['PanelF'],
         },
       ],
     },
@@ -147,8 +151,12 @@ function App() {
                 </Dockable>
               </div>
 
-              <Widget id="TestA" title="Test A" />
-              <Widget id="TestB" title="Test B" />
+              <Widget id="PanelA" title="Panel A" />
+              <Widget id="PanelB" title="Panel B" />
+              <Widget id="PanelC" title="Panel C" />
+              <Widget id="PanelD" title="Panel D" />
+              <Widget id="PanelE" title="Panel E" />
+              <Widget id="PanelF" title="Panel F" />
             </Dockable>
           </div>
         </div>
