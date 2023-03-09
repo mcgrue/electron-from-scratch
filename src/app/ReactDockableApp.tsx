@@ -15,38 +15,69 @@ import css from './ReactDockableApp.module.css';
 import {TOOLS} from './breaditor/tools/constants';
 
 import {PanelState} from 'react-dockable-ts';
-//import {TestPanel} from './breaditor/panels/TestPanel';
+
+import {DocumentInfo, WidgetInfo} from '../../types/global';
+
+let docLoaded = true;
+
+function getCurrentPanels(): WidgetInfo[] {
+  if (!docLoaded) return [];
+  return [
+    {id: 'PanelA', title: 'Panel A'},
+    {id: 'PanelB', title: 'Panel B'},
+    {id: 'PanelC', title: 'Panel C'},
+    {id: 'PanelD', title: 'Panel D'},
+    {id: 'PanelE', title: 'Panel E'},
+    {id: 'PanelF', title: 'Panel F'},
+  ];
+}
+
+function getCurrentDocuments(): DocumentInfo[] {
+  if (!docLoaded) return [];
+  return [
+    {id: 'DocA', title: 'Doc A'},
+    {id: 'DocB', title: 'Doc B'},
+  ];
+}
+
+const panelsOnState: PanelState[] = [
+  {
+    windows: [
+      {
+        selected: 0,
+        widgets: ['PanelA', 'PanelB'],
+      },
+      {
+        selected: 0,
+        widgets: ['PanelC', 'PanelD', 'PanelE'],
+      },
+      {
+        selected: 0,
+        widgets: ['PanelF'],
+      },
+    ],
+  },
+];
+
+const docsOnState: PanelState[] = [
+  {
+    windows: [
+      {
+        selected: 0,
+        widgets: ['DocA', 'DocB'],
+      },
+    ],
+  },
+];
 
 export function App() {
-  const [panelState, setPanelState] = useState<PanelState[]>([
-    /*{
-      windows: [
-        {
-          selected: 0,
-          widgets: ['PanelA', 'PanelB'],
-        },
-        {
-          selected: 0,
-          widgets: ['PanelC', 'PanelD', 'PanelE'],
-        },
-        {
-          selected: 0,
-          widgets: ['PanelF'],
-        },
-      ],
-    },*/
-  ]);
+  const [panelState, setPanelState] = useState<PanelState[]>(
+    docLoaded ? panelsOnState : [],
+  );
 
-  const [docPanelState, setDocPanelState] = useState<PanelState[]>([
-    /*{
-      windows: [
-        {
-          selected: 0,
-          widgets: ['DocA', 'DocB'],
-        },
-      ],
-    },*/
-  ]);
+  const [docPanelState, setDocPanelState] = useState<PanelState[]>(
+    docLoaded ? docsOnState : [],
+  );
 
   return (
     <WindowProxy
@@ -120,18 +151,8 @@ export function App() {
             setPanelState={setPanelState}
             initialDocumentsState={docPanelState}
             setDocumentState={setDocPanelState}
-            documents={[
-              {id: 'DocA', title: 'Document A'},
-              {id: 'DocB', title: 'Document B'},
-            ]}
-            panels={[
-              {id: 'PanelA', title: 'Panel A'},
-              {id: 'PanelB', title: 'Panel B'},
-              {id: 'PanelC', title: 'Panel C'},
-              {id: 'PanelD', title: 'Panel D'},
-              {id: 'PanelE', title: 'Panel E'},
-              {id: 'PanelF', title: 'Panel F'},
-            ]}
+            documents={getCurrentDocuments()}
+            panels={getCurrentPanels()}
           />
         </div>
         <StatusBar
