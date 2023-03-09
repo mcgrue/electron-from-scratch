@@ -1,4 +1,4 @@
-import {BrowserWindow, app, ipcMain} from 'electron';
+import {BrowserWindow, app, ipcMain, session} from 'electron';
 const path = require('path');
 const dotenv = require('dotenv').config();
 
@@ -15,6 +15,15 @@ function createWindow() {
   });
   mainWindow.setMenu(null); // No system menu.
   mainWindow.loadFile('dist/app/index.html'); // cwd is wherever you called `electron start` from.
+
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': ['*'],
+      },
+    });
+  });
 
   ipcMain.on('app-minimize', () => {
     console.log('app-minimize');
