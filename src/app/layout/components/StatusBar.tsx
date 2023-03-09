@@ -1,32 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ReactNode} from 'react';
-import {TOOLS} from '../../breaditor/tools/constants';
 
 // @ts-ignore
 import css from './PropertyBar.module.css';
 
-import * as icons from '../../ui/icons';
-
 interface StatusBarProps {
-  dispatch: ({}: any) => void;
-  state: {};
-  tool: {};
-  view: {};
+  initialStatuses: string[];
 }
 
-const StatusBar: React.FC<StatusBarProps> = (props) => {
-  function getProperties() {
-    switch (props.tool) {
-      case TOOLS.Brush:
-        return <BrushProperties {...props} />;
-      default:
-        alert('NO TOOL');
-        return null;
-    }
-  }
+let _stateUpdate: any;
 
-  return <div className={css.container}>{getProperties()}</div>;
+const StatusBar: React.FC<StatusBarProps> = (props) => {
+  const [statuses, setState] = useState(props.initialStatuses);
+  _stateUpdate = setState;
+
+  return (
+    <div className={css.container}>
+      {statuses.map((str: string, idx: number) => (
+        <PropertyGroup key={idx}>{str}</PropertyGroup>
+      ))}
+    </div>
+  );
 };
+
+function updateStatusBar(newStatuses: string[]) {
+  console.log('updateStatusBar', newStatuses);
+  _stateUpdate(newStatuses);
+}
 
 interface PropertyGroupProps {
   children: ReactNode;
@@ -48,31 +48,4 @@ const PropertyGroup: React.FC<PropertyGroupProps> = (props) => {
   );
 };
 
-interface BrushPropertiesProps {
-  state: {};
-  view: {};
-  dispatch: ({}: any) => void;
-}
-const BrushProperties: React.FC<BrushPropertiesProps> = () => {
-  return (
-    <>
-      <PropertyGroup>Status</PropertyGroup>
-      <PropertyGroup>More Status</PropertyGroup>
-      <PropertyGroup>Even More Status</PropertyGroup>
-      <icons.BrushIcon
-        style={{
-          width: 36,
-          height: 36,
-          // padding: "0 6px",
-          padding: 6,
-          // marginRight: 6,
-          fill: 'white',
-          right: 6,
-          position: 'absolute',
-        }}
-      />
-    </>
-  );
-};
-
-export {StatusBar};
+export {StatusBar, updateStatusBar};

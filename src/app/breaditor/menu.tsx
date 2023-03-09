@@ -74,10 +74,7 @@ function getMenu() {
           actions: {
             'New Document': () => {
               dispatch({
-                type: 'CREATE_NEW_DOCUMENT',
-                title: 'New Document',
-                width: 512,
-                height: 256,
+                type: 'DOC_CREATE_NEW',
               });
             },
             'File Thing': function () {

@@ -1,6 +1,14 @@
-import React, {useState, Dispatch, SetStateAction} from 'react';
+import React, {
+  useState,
+  // useRef,
+  //useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import {Dockable, PanelState} from 'react-dockable-ts';
 import {DocumentInfo, WidgetInfo} from '../../../../types/global';
+
+import {dispatch} from '../../state-management/in-memory/dispatch';
 
 interface WorkspaceAreaProps {
   style: any;
@@ -56,6 +64,9 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
           initialState={props.initialDocumentsState}
           onUpdate={(state) => {
             props.setDocumentState(state);
+          }}
+          onActive={(id) => {
+            dispatch({type: 'DOC_FOCUS', document_id: id});
           }}
         >
           {props.documents.map((doc) => {

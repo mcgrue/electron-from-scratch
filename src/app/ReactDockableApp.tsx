@@ -10,6 +10,10 @@ import {StatusBar} from './layout/components/StatusBar';
 import {WorkspaceArea} from './layout/components/WorkspaceArea';
 
 import {getMenu} from './breaditor/menu';
+import {addDocument} from './breaditor/DocumentManager';
+import {mapMaker} from './breaditor/documents/MapDocument';
+import {textMaker} from './breaditor/documents/TextDocument';
+import {spriteMaker} from './breaditor/documents/SpriteDocument';
 import {TOOLS} from './breaditor/tools/constants';
 import {DocumentInfo, WidgetInfo} from '../../types/global';
 
@@ -17,6 +21,11 @@ import {DocumentInfo, WidgetInfo} from '../../types/global';
 import css from './ReactDockableApp.module.css';
 
 let docLoaded = false;
+
+addDocument(mapMaker('Map A'));
+addDocument(textMaker('Text B'));
+addDocument(spriteMaker('Sprite C'));
+addDocument(mapMaker('Map D'));
 
 function getCurrentPanels(): WidgetInfo[] {
   if (!docLoaded) return [];
@@ -35,8 +44,8 @@ export {getCurrentPanels};
 function getCurrentDocuments(): DocumentInfo[] {
   if (!docLoaded) return [];
   return [
-    {id: 'DocA', title: 'Doc A'},
-    {id: 'DocB', title: 'Doc B'},
+    {id: 'DocA', title: 'Doc A', type: 'MAP'},
+    {id: 'DocB', title: 'Doc B', type: 'MAP'},
   ];
 }
 
@@ -143,6 +152,7 @@ export function App() {
             }}
           />
           <WorkspaceArea
+            key={'main_workspace'}
             style={{
               flexGrow: 1,
               maxWidth: `calc(100% - 47px)`,
@@ -158,14 +168,7 @@ export function App() {
             panels={getCurrentPanels()}
           />
         </div>
-        <StatusBar
-          state={{}}
-          dispatch={(bar) => {
-            console.log('Another fake dispatch that was passed: ', bar);
-          }}
-          tool={TOOLS.Brush}
-          view={{}}
-        />
+        <StatusBar initialStatuses={['Welcome to the Breaditor', '❤', '🦵']} />
       </div>
     </WindowProxy>
   );

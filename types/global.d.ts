@@ -8,6 +8,7 @@ declare global {
 interface DocumentInfo {
   id: string;
   title: string;
+  type: 'MAP' | 'SPRITE' | 'TEXT';
 }
 
 interface WidgetInfo {
