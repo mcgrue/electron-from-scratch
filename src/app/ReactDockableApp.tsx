@@ -1,20 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState /*, useReducer*/} from 'react';
 import {createRoot} from 'react-dom/client';
 import {WindowProxy} from './layout/components/WindowProxy';
 import {MenuBar} from './layout/components/MenuBar';
 import {ToolBar} from './layout/components/ToolBar';
 import {PropertyBar} from './layout/components/PropertyBar';
 import {StatusBar} from './layout/components/StatusBar';
+
+import {WorkspaceArea} from './layout/components/WorkspaceArea';
+
 // import {DocumentsContainer} from './layout/components/DocumentsContainer';
 // @ts-ignore
 import css from './ReactDockableApp.module.css';
 
 import {TOOLS} from './breaditor/tools/constants';
 
-import {Dockable, PanelState} from 'react-dockable-ts';
+import {PanelState} from 'react-dockable-ts';
 //import {TestPanel} from './breaditor/panels/TestPanel';
 
-function App() {
+export function App() {
   const [panelState, setPanelState] = useState<PanelState[]>([
     {
       windows: [
@@ -114,7 +117,7 @@ function App() {
               console.log('A fake dispatch that was passed: ', foo);
             }}
           />
-          <div
+          <WorkspaceArea
             style={{
               flexGrow: 1,
               maxWidth: `calc(100% - 47px)`,
@@ -122,43 +125,23 @@ function App() {
               margin: '1px 0 0 1px',
               // margin: 3,
             }}
-          >
-            <Dockable
-              initialState={panelState}
-              onUpdate={(state) => {
-                setPanelState(state);
-              }}
-              spacing={3}
-            >
-              <div
-                title={'Documents (Should Be Hidden)'}
-                id={'documents-container'}
-                style={{
-                  display: 'flex',
-                  flexGrow: 1,
-                  width: '100%',
-                  height: '100%',
-                }}
-              >
-                <Dockable
-                  initialState={docPanelState}
-                  onUpdate={(state) => {
-                    setDocPanelState(state);
-                  }}
-                >
-                  <Widget id="DocA" title="Doc A" />
-                  <Widget id="DocB" title="Doc B" />
-                </Dockable>
-              </div>
-
-              <Widget id="PanelA" title="Panel A" />
-              <Widget id="PanelB" title="Panel B" />
-              <Widget id="PanelC" title="Panel C" />
-              <Widget id="PanelD" title="Panel D" />
-              <Widget id="PanelE" title="Panel E" />
-              <Widget id="PanelF" title="Panel F" />
-            </Dockable>
-          </div>
+            initialPanelState={panelState}
+            setPanelState={setPanelState}
+            initialDocumentsState={docPanelState}
+            setDocumentState={setDocPanelState}
+            documents={[
+              {id: 'DocA', title: 'Document A'},
+              {id: 'DocB', title: 'Document B'},
+            ]}
+            panels={[
+              {id: 'PanelA', title: 'Panel A'},
+              {id: 'PanelB', title: 'Panel B'},
+              {id: 'PanelC', title: 'Panel C'},
+              {id: 'PanelD', title: 'Panel D'},
+              {id: 'PanelE', title: 'Panel E'},
+              {id: 'PanelF', title: 'Panel F'},
+            ]}
+          />
         </div>
         <StatusBar
           state={{}}
@@ -171,15 +154,6 @@ function App() {
       </div>
     </WindowProxy>
   );
-}
-
-type WidgetTypes = {
-  id: string;
-  title: string;
-};
-
-function Widget({id, title}: WidgetTypes) {
-  return <div key={id}>{title} test</div>;
 }
 
 export function init() {

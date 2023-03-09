@@ -937,7 +937,7 @@
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
 
-"@types/react@*":
+"@types/react@*", "@types/react@^18.0.28":
   version "18.0.28"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.28.tgz"
   integrity sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==
@@ -3629,7 +3629,6 @@ jest@^28.1.0:
     jest-cli "^28.1.1"
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
-"js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
@@ -4623,9 +4622,9 @@ react-beautiful-dnd@^13.1.1:
     redux "^4.0.4"
     use-memo-one "^1.1.1"
 
-"react-dockable-ts@https://github.com/breadbros/react-dockable-ts#v0.0.11":
+"react-dockable-ts@https://github.com/breadbros/react-dockable-ts#v0.0.14":
   version "0.1.0"
-  resolved "https://github.com/breadbros/react-dockable-ts#b2780c7a26b6a5912a085b453cc00bee2bbc3fa4"
+  resolved "https://github.com/breadbros/react-dockable-ts#4122edea74da40fec4a0ddeea47d3ed707f3bda2"
   dependencies:
     autoprefixer "^10.4.13"
     postcss-url "^10.1.3"
@@ -4703,6 +4702,11 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+redux-devtools-extension@^2.13.9:
+  version "2.13.9"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz#6b764e8028b507adcb75a1cae790f71e6be08ae7"
+  integrity sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A==
 
 redux@^4.0.0, redux@^4.0.4:
   version "4.2.1"

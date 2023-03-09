@@ -1,20 +1,24 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-// import { AppContainer } from 'react-hot-loader';
+import {init} from './ReactDockableApp';
 
-// import Dockable from 'react-dockable';
-import {App} from './components/App';
-import store from './store';
+// @ts-ignore
+import css from './globals.module.css';
 
-// Create main element
-const mainElement = document.createElement('div');
-mainElement.id = 'root';
-document.body.appendChild(mainElement);
+function appendGlobalCss() {
+  const head = document.head;
+  const style = document.createElement('style');
+  style.type = 'text/css';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
+  style.textContent = css;
+  head.appendChild(style);
+}
+
+function startApp() {
+  appendGlobalCss();
+  init();
+}
+
+// @ts-ignore
+window['startApp'] = startApp; //we call this in the index.html after loading to bootstrap.
+// we don't call it here so we don't init anything for unit testing
+
+export {appendGlobalCss, startApp};
