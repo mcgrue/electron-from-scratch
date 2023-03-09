@@ -1,6 +1,6 @@
-import React, {/*useState, useReducer,*/ Dispatch, SetStateAction} from 'react';
+import React, {useState, Dispatch, SetStateAction} from 'react';
 import {Dockable, PanelState} from 'react-dockable-ts';
-// import {DocumentInfo, WidgetInfo} from '../../../../types/global';
+import {DocumentInfo, WidgetInfo} from '../../../../types/global';
 
 interface WorkspaceAreaProps {
   style: any;
@@ -9,30 +9,41 @@ interface WorkspaceAreaProps {
   initialDocumentsState: PanelState[];
   setDocumentState: Dispatch<SetStateAction<PanelState[]>>;
 
-  //documents: DocumentInfo[];
-  //panels: WidgetInfo[];
+  documents: DocumentInfo[];
+  panels: WidgetInfo[];
 }
-
-/*
-
-        {props.documents.map((doc) => {
-          console.log('doc', doc);
-          return <Widget id={doc.id} title={doc.title} />;
-        })}
-
-        {props.panels.map((panel) => {
-          console.log('panel', panel);
-          return <Widget id={panel.id} title={panel.title} />;
-        })}
-
-*/
-
 const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
+  const [layoutState, setLayoutState] = useState<PanelState[]>([
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['documents-container'],
+          hideTabs: true,
+        },
+      ],
+    },
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['panels-container'],
+          hideTabs: true,
+        },
+      ],
+    },
+  ]);
+
+  const myPanels = props.panels.map((panel) => {
+    console.log('panel', panel);
+    return <Widget id={panel.id} key={panel.id} title={panel.title} />;
+  });
+
   return (
     <Dockable
-      initialState={props.initialPanelState}
+      initialState={layoutState}
       onUpdate={(state) => {
-        props.setPanelState(state);
+        setLayoutState(state);
       }}
       spacing={3}
     >
@@ -52,16 +63,31 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
             props.setDocumentState(state);
           }}
         >
-          <Widget id="DocA" title="AAA" />
-          <Widget id="DocB" title="BBB" />
+          {props.documents.map((doc) => {
+            console.log('doc', doc);
+            return <Widget id={doc.id} title={doc.title} />;
+          })}
         </Dockable>
       </div>
-      <Widget id="PanelA" title="AAA" />
-      <Widget id="PanelB" title="BBB" />
-      <Widget id="PanelC" title="CCC" />
-      <Widget id="PanelD" title="DDD" />
-      <Widget id="PanelE" title="EEE" />
-      <Widget id="PanelF" title="FFF" />
+      <div
+        title={'Panels (Should Be Hidden)'}
+        id={'panels-container'}
+        style={{
+          display: 'flex',
+          flexGrow: 1,
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <Dockable
+          initialState={props.initialPanelState}
+          onUpdate={(state) => {
+            props.setPanelState(state);
+          }}
+        >
+          {myPanels}
+        </Dockable>
+      </div>
     </Dockable>
   );
 };

@@ -23,15 +23,6 @@ export function App() {
       windows: [
         {
           selected: 0,
-          widgets: ['documents-container'],
-          hideTabs: true,
-        },
-      ],
-    },
-    {
-      windows: [
-        {
-          selected: 0,
           widgets: ['PanelA', 'PanelB'],
         },
         {
