@@ -27,29 +27,7 @@ addDocument(textMaker('Text B'));
 addDocument(spriteMaker('Sprite C'));
 addDocument(mapMaker('Map D'));
 
-function getCurrentPanels(): WidgetInfo[] {
-  if (!docLoaded) return [];
-  return [
-    {id: 'PanelA', title: 'Panel A'},
-    {id: 'PanelB', title: 'Panel B'},
-    {id: 'PanelC', title: 'Panel C'},
-    {id: 'PanelD', title: 'Panel D'},
-    {id: 'PanelE', title: 'Panel E'},
-    {id: 'PanelF', title: 'Panel F'},
-  ];
-}
-
-export {getCurrentPanels};
-
-function getCurrentDocuments(): DocumentInfo[] {
-  if (!docLoaded) return [];
-  return [
-    {id: 'DocA', title: 'Doc A', type: 'MAP'},
-    {id: 'DocB', title: 'Doc B', type: 'MAP'},
-  ];
-}
-
-const panelsOnState: PanelState[] = [
+const demoInitialPanelState: PanelState[] = [
   {
     windows: [
       {
@@ -68,7 +46,16 @@ const panelsOnState: PanelState[] = [
   },
 ];
 
-const docsOnState: PanelState[] = [
+const demoPanelInfo: WidgetInfo[] = [
+  {id: 'PanelA', title: 'Panel A'},
+  {id: 'PanelB', title: 'Panel B'},
+  {id: 'PanelC', title: 'Panel C'},
+  {id: 'PanelD', title: 'Panel D'},
+  {id: 'PanelE', title: 'Panel E'},
+  {id: 'PanelF', title: 'Panel F'},
+];
+
+const demoInitialDocState: PanelState[] = [
   {
     windows: [
       {
@@ -79,13 +66,28 @@ const docsOnState: PanelState[] = [
   },
 ];
 
+const demoDocumentsInfo: DocumentInfo[] = [
+  {id: 'DocA', title: 'Doc A', type: 'MAP'},
+  {id: 'DocB', title: 'Doc B', type: 'MAP'},
+];
+
+function getCurrentPanels(): WidgetInfo[] {
+  if (!docLoaded) return [];
+  return demoPanelInfo;
+}
+
+function getCurrentDocuments(): DocumentInfo[] {
+  if (!docLoaded) return [];
+  return demoDocumentsInfo;
+}
+
 let _setPanelState: any;
 let _setDocPanelState: any;
 export function setOnOrOff(onOrOff: boolean) {
   docLoaded = onOrOff;
   updateDocumentManagerState(
-    docLoaded ? docsOnState : [],
-    docLoaded ? panelsOnState : [],
+    docLoaded ? demoInitialDocState : [],
+    docLoaded ? demoInitialPanelState : [],
   );
 }
 
@@ -93,17 +95,17 @@ export function updateDocumentManagerState(
   panelState: PanelState[],
   documentState: PanelState[],
 ) {
-  _setPanelState(docLoaded ? panelsOnState : []);
-  _setDocPanelState(docLoaded ? docsOnState : []);
+  _setPanelState(docLoaded ? demoInitialPanelState : []);
+  _setDocPanelState(docLoaded ? demoInitialDocState : []);
 }
 
 export function App() {
   const [panelState, setPanelState] = useState<PanelState[]>(
-    docLoaded ? panelsOnState : [],
+    docLoaded ? demoInitialPanelState : [],
   );
 
   const [docPanelState, setDocPanelState] = useState<PanelState[]>(
-    docLoaded ? docsOnState : [],
+    docLoaded ? demoInitialDocState : [],
   );
 
   _setPanelState = setPanelState;
@@ -184,10 +186,14 @@ export function App() {
   );
 }
 
-export function init() {
+function init() {
   const domNode = document.getElementById('react-root') as Element;
   console.log(domNode, 'domNode');
   const root = createRoot(domNode);
 
   root.render(<App />);
 }
+
+//TODO: eslint-plugin-import, force import/order for bottom-of-file exporting ONLY
+
+export {init, getCurrentPanels, getCurrentDocuments};
