@@ -1,7 +1,7 @@
 import React from 'react';
 import {dispatch} from '../../app/state-management/in-memory/dispatch';
 
-import {getCurrentPanels} from '../ReactDockableApp';
+// import {getCurrentPanels} from '../ReactDockableApp';
 
 function Logo() {
   return (
@@ -22,6 +22,7 @@ function Logo() {
   );
 }
 
+/*
 function getWidgetVisibilityOptions() {
   return getCurrentPanels().reduce((obj: any, widget: any) => {
     obj[widget.title] = {
@@ -37,6 +38,7 @@ function getWidgetVisibilityOptions() {
     return obj;
   }, {});
 }
+*/
 
 function getMenu() {
   return [
@@ -85,6 +87,23 @@ function getMenu() {
         },
       ],
     },
+    {
+      name: 'Test',
+      actions: [
+        {
+          type: 'actions',
+          actions: {
+            'Panels on': function () {
+              dispatch({type: 'TEST_ON'});
+            },
+            'Panels off': function () {
+              dispatch({type: 'TEST_OFF'});
+            },
+          },
+        },
+      ],
+    },
+    /*
     {
       name: 'Edit',
       actions: [
@@ -156,6 +175,7 @@ function getMenu() {
         },
       ],
     },
+    */
   ];
 }
 

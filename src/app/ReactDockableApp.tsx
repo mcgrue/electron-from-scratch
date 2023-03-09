@@ -16,7 +16,7 @@ import {DocumentInfo, WidgetInfo} from '../../types/global';
 // @ts-ignore
 import css from './ReactDockableApp.module.css';
 
-let docLoaded = true;
+let docLoaded = false;
 
 function getCurrentPanels(): WidgetInfo[] {
   if (!docLoaded) return [];
@@ -70,6 +70,14 @@ const docsOnState: PanelState[] = [
   },
 ];
 
+let _setPanelState: any;
+let _setDocPanelState: any;
+export function setOnOrOff(onOrOff: boolean) {
+  docLoaded = onOrOff;
+  _setPanelState(docLoaded ? panelsOnState : []);
+  _setDocPanelState(docLoaded ? docsOnState : []);
+}
+
 export function App() {
   const [panelState, setPanelState] = useState<PanelState[]>(
     docLoaded ? panelsOnState : [],
@@ -78,6 +86,9 @@ export function App() {
   const [docPanelState, setDocPanelState] = useState<PanelState[]>(
     docLoaded ? docsOnState : [],
   );
+
+  _setPanelState = setPanelState;
+  _setDocPanelState = setDocPanelState;
 
   return (
     <WindowProxy
