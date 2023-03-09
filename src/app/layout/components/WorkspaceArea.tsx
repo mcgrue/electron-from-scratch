@@ -80,7 +80,6 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
           }}
         >
           {props.panels.map((panel) => {
-            console.log('panel', panel);
             return <Widget id={panel.id} key={panel.id} title={panel.title} />;
           })}
         </Dockable>
