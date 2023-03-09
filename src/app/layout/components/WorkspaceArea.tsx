@@ -34,11 +34,6 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
     },
   ]);
 
-  const myPanels = props.panels.map((panel) => {
-    console.log('panel', panel);
-    return <Widget id={panel.id} key={panel.id} title={panel.title} />;
-  });
-
   return (
     <Dockable
       initialState={layoutState}
@@ -65,7 +60,7 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
         >
           {props.documents.map((doc) => {
             console.log('doc', doc);
-            return <Widget id={doc.id} title={doc.title} />;
+            return <Widget key={doc.id} id={doc.id} title={doc.title} />;
           })}
         </Dockable>
       </div>
@@ -85,7 +80,10 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
             props.setPanelState(state);
           }}
         >
-          {myPanels}
+          {props.panels.map((panel) => {
+            console.log('panel', panel);
+            return <Widget id={panel.id} key={panel.id} title={panel.title} />;
+          })}
         </Dockable>
       </div>
     </Dockable>

@@ -19,7 +19,7 @@ import {PanelState} from 'react-dockable-ts';
 
 export function App() {
   const [panelState, setPanelState] = useState<PanelState[]>([
-    {
+    /*{
       windows: [
         {
           selected: 0,
@@ -34,18 +34,18 @@ export function App() {
           widgets: ['PanelF'],
         },
       ],
-    },
+    },*/
   ]);
 
   const [docPanelState, setDocPanelState] = useState<PanelState[]>([
-    {
+    /*{
       windows: [
         {
           selected: 0,
           widgets: ['DocA', 'DocB'],
         },
       ],
-    },
+    },*/
   ]);
 
   return (
