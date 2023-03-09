@@ -1,22 +1,20 @@
 import React, {useState /*, useReducer*/} from 'react';
 import {createRoot} from 'react-dom/client';
+import {PanelState} from 'react-dockable-ts';
+
 import {WindowProxy} from './layout/components/WindowProxy';
 import {MenuBar} from './layout/components/MenuBar';
 import {ToolBar} from './layout/components/ToolBar';
 import {PropertyBar} from './layout/components/PropertyBar';
 import {StatusBar} from './layout/components/StatusBar';
-
 import {WorkspaceArea} from './layout/components/WorkspaceArea';
 
-// import {DocumentsContainer} from './layout/components/DocumentsContainer';
+import {getMenu} from './breaditor/menu';
+import {TOOLS} from './breaditor/tools/constants';
+import {DocumentInfo, WidgetInfo} from '../../types/global';
+
 // @ts-ignore
 import css from './ReactDockableApp.module.css';
-
-import {TOOLS} from './breaditor/tools/constants';
-
-import {PanelState} from 'react-dockable-ts';
-
-import {DocumentInfo, WidgetInfo} from '../../types/global';
 
 let docLoaded = true;
 
@@ -31,6 +29,8 @@ function getCurrentPanels(): WidgetInfo[] {
     {id: 'PanelF', title: 'Panel F'},
   ];
 }
+
+export {getCurrentPanels};
 
 function getCurrentDocuments(): DocumentInfo[] {
   if (!docLoaded) return [];
@@ -97,24 +97,16 @@ export function App() {
         }}
       >
         <MenuBar
-          dispatch={(foo) => {
+          dispatch={(foo: any) => {
             console.log('I am a fake dispatch in ReactDockableApp.  Yay.', foo);
           }}
-          widgets={
-            {
-              /*this.getWidgets()
-            .filter((widget) => !widget.props.unhidable)
-            .map((widget) => ({
-              id: widget.props.id,
-              title: widget.props.title,
-            }))*/
-            }
-          }
+          widgets={getCurrentPanels()}
           hidden={
             {
               /*this.getState().widgets.hidden*/
             }
           }
+          getMenu={getMenu}
         />
         <PropertyBar
           state={{}}

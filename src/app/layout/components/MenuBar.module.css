@@ -43,6 +43,7 @@
   pointer-events: none;
   z-index: -100;
 }
+
 .menu {
   --windowRadius: 8px;
   display: flex;
@@ -63,12 +64,10 @@
   bottom: 0;
   right: calc(0px - var(--windowRadius));
   background-color: var(--primary);
-  -webkit-mask-image: radial-gradient(
-    circle 10px at var(--windowRadius) 0,
-    transparent 0,
-    transparent calc(var(--windowRadius) - 1px),
-    black calc(var(--windowRadius) + 0px)
-  );
+  -webkit-mask-image: radial-gradient(circle 10px at var(--windowRadius) 0,
+      transparent 0,
+      transparent calc(var(--windowRadius) - 1px),
+      black calc(var(--windowRadius) + 0px));
 }
 
 .menuItem {
@@ -79,18 +78,20 @@
   cursor: pointer;
   border-radius: 4px;
 }
+
 .menuItem:hover {
   background-color: rgba(0, 0, 0, 0.125);
 }
+
 .menuItem.selected {
   background-color: var(--secondary);
 }
 
 .windowsControls {
-  /* position: absolute;
+  position: absolute;
   top: 0;
   right: 0;
-  height: 100%; */
+  height: 100%;
   width: 128px;
   min-width: 128px;
   display: flex;
@@ -117,6 +118,7 @@
 .windowsControls .button:hover {
   background-color: rgba(0, 0, 0, 0.125);
 }
+
 .windowsControls .button.close:hover {
   background-color: #e81123;
 }

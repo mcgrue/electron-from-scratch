@@ -14,3 +14,8 @@ interface WidgetInfo {
   id: string;
   title: string;
 }
+
+interface Vec2xy {
+  x: number;
+  y: number;
+}

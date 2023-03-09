@@ -59,7 +59,6 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
           }}
         >
           {props.documents.map((doc) => {
-            console.log('doc', doc);
             return <Widget key={doc.id} id={doc.id} title={doc.title} />;
           })}
         </Dockable>
