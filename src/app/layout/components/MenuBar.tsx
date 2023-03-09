@@ -72,7 +72,6 @@ const MenuBar: React.FC<MenuBarProps> = (props) => {
       {/* Menu Items */}
       <div className={css.menu} style={{zIndex: 1000}}>
         {props.getMenu().map((control: any, i: any) => {
-          console.log('rendering: ', control, i);
           return (
             <div
               key={i}

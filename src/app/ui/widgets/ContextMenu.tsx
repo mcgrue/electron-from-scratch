@@ -68,9 +68,9 @@ const ContextMenu: React.FC<ContextMenuProps> = (props) => {
     }
 
     // Optional cleanup function to run on unmount
-    return () => {
-      console.log('ContextMenu Component unmounted');
-    };
+    // return () => {
+    //  console.log('ContextMenu Component unmounted');
+    //};
   }, []); // Empty dependency array to only run once
 
   return (
