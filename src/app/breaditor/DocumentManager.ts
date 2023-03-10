@@ -2,12 +2,14 @@ import {MapDocument} from './documents/MapDocument';
 import {SpriteDocument} from './documents/SpriteDocument';
 import {TextDocument} from './documents/TextDocument';
 import {updateStatusBar} from '../layout/components/StatusBar';
-import {DocumentInfo, WidgetInfo} from '../../../types/global';
+import {DocumentInfo, WidgetInfo} from '../../../types/global.d';
 
 // @ts-ignore
 import emoji from 'emoji-dictionary';
 
+type DocumentType = 'MAP' | 'SPRITE' | 'TEXT';
 type BreaditorDocument = MapDocument | SpriteDocument | TextDocument;
+type NullableBreaditorDocument = BreaditorDocument | null;
 
 function getWidgetInfo(): WidgetInfo[] {
   return demoInitialPanelInfo;
@@ -30,11 +32,19 @@ const demoInitialDocumentInfo: DocumentInfo[] = [
   {id: 'DocB', title: 'Doc B', type: 'MAP'},
 ];
 
-// @ts-ignore
-const ValidPanelsForDocumentType = {
-  Map: ['Layers', 'Info', 'Entities', 'Zones', 'Screenview'],
-  Sprite: ['Info', 'Palette'],
-  Text: ['Todo'],
+type SpecificMap<K extends string> = {
+  [key in K]: string[];
+};
+type _DocTypeMap = SpecificMap<DocumentType>;
+type DocTypeMap = _DocTypeMap & {
+  [key: string]: never;
+};
+
+// @ts-ignore WHY THIS NEEDS TO BE IGNORED, I DONT UNDERSTAND
+const ValidPanelsForDocumentType: DocTypeMap = {
+  MAP: ['Layers', 'Info', 'Entities', 'Zones', 'Screenview'],
+  SPRITE: ['Info', 'Palette'],
+  TEXT: ['Todo'],
 };
 
 let _uuid_inc = 1;
@@ -60,13 +70,64 @@ function addDocument(doc: BreaditorDocument) {
   if (_activeDocument === null) {
     _activeDocument = doc;
   }
+
+  _docs.push(doc);
 }
 
-function activeDocument() {
+function removeDocument(docObjOrStringId: BreaditorDocument | string) {
+  if (typeof docObjOrStringId == 'string') {
+    _removeDocumentById(docObjOrStringId);
+  } else {
+    _removeDocumentById(docObjOrStringId.info.id);
+  }
+}
+
+function _removeDocumentById(id: string) {
+  let indexToRemove: number | null = null;
+  let indexToBecomeActive: number | null = null;
+  for (let index = 0; index < _docs.length; index++) {
+    const doc = _docs[index];
+    if (doc.info.id === id) {
+      indexToRemove = index;
+      break;
+    }
+  }
+
+  if (indexToRemove === null) {
+    throw new Error(`Document (${id}) was not in the active document list`);
+  }
+
+  if (indexToRemove !== 0) {
+    indexToBecomeActive = indexToRemove - 1;
+  } else if (_docs.length !== 1) {
+    indexToBecomeActive = indexToRemove + 1;
+  }
+
+  const newActiveObj = // store now while the index makes sense, make active after delete
+    indexToBecomeActive === null ? null : _docs[indexToBecomeActive];
+
+  const oldSize = _docs.length;
+  _docs = _docs.filter((obj) => obj.info.id !== id);
+  if (oldSize === _docs.length) {
+    throw new Error(`Document (${id}) was not in the active document list`);
+  }
+
+  if (newActiveObj === null) {
+    _activeDocument = null;
+  } else {
+    focusDocument(newActiveObj.info.id);
+  }
+}
+
+function getDocuments(): BreaditorDocument[] {
+  return _docs;
+}
+
+function activeDocument(): NullableBreaditorDocument {
   return _activeDocument;
 }
 
-let _activeDocument: BreaditorDocument | null = null;
+let _activeDocument: NullableBreaditorDocument = null;
 let _docs: BreaditorDocument[] = [];
 
 function _TEST_reset() {
@@ -75,7 +136,7 @@ function _TEST_reset() {
 }
 
 function focusDocument(id: string) {
-  let myDoc: BreaditorDocument | null = getDocumentById(id);
+  let myDoc: NullableBreaditorDocument = getDocumentById(id);
 
   if (myDoc == null) {
     debugger;
@@ -99,7 +160,7 @@ function focusDocument(id: string) {
 }
 
 function getDocumentById(id: string) {
-  let myDoc: BreaditorDocument | null = null;
+  let myDoc: NullableBreaditorDocument = null;
   _docs.map((d) => {
     if (d.info.id == id) {
       if (myDoc == null) {
@@ -116,8 +177,12 @@ function getDocumentById(id: string) {
 export {
   focusDocument,
   activeDocument,
+  getDocuments,
   addDocument,
+  removeDocument,
   getWidgetInfo,
   getDocumentInfo,
   _TEST_reset,
 };
+
+export type {DocumentType, BreaditorDocument, NullableBreaditorDocument};
