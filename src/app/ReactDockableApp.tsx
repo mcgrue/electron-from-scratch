@@ -179,6 +179,10 @@ function updateDocumentManagerState(
   _setDocPanelState(documentState);
 }
 
+function getDocumentState() {
+  return _DocumentState;
+}
+
 function App() {
   const [panelState, setPanelState] = useState<PanelState[]>(
     createInitialPanelState(),
@@ -286,4 +290,6 @@ export {
   init,
   setOnOrOff,
   updateDocumentManagerState,
+  createInitialPanelInfoForDocumentType,
+  getDocumentState,
 };
