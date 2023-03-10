@@ -56,9 +56,24 @@ function addDocument(doc: BreaditorDocument) {
   }
 
   doc.info.id = myUuid;
+
+  if (_activeDocument === null) {
+    _activeDocument = doc;
+  }
 }
 
-let docs: BreaditorDocument[] = [];
+function activeDocument() {
+  return _activeDocument;
+}
+
+let _activeDocument: BreaditorDocument | null = null;
+let _docs: BreaditorDocument[] = [];
+
+function _TEST_reset() {
+  _docs = [];
+  _activeDocument = null;
+}
+
 function focusDocument(id: string) {
   let myDoc: BreaditorDocument | null = getDocumentById(id);
 
@@ -78,12 +93,14 @@ function focusDocument(id: string) {
       getEmoji(),
       getEmoji(),
     ]);
+
+    _activeDocument = myDoc;
   }
 }
 
 function getDocumentById(id: string) {
   let myDoc: BreaditorDocument | null = null;
-  docs.map((d) => {
+  _docs.map((d) => {
     if (d.info.id == id) {
       if (myDoc == null) {
         myDoc = d;
@@ -96,4 +113,11 @@ function getDocumentById(id: string) {
   return myDoc;
 }
 
-export {focusDocument, addDocument, getWidgetInfo, getDocumentInfo};
+export {
+  focusDocument,
+  activeDocument,
+  addDocument,
+  getWidgetInfo,
+  getDocumentInfo,
+  _TEST_reset,
+};
