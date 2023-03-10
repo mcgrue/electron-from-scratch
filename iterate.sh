@@ -1,12 +1,6 @@
 #!/usr/bin/bash
 
-if [ -f .iterate_pidfile ]; then
-    echo "killing previous iteration..."
-    kill $(cat .iterate_pidfile)
-    rm .iterate_pidfile
-else
-    echo "pidfile '.iterate_pidfile' not present"
-fi
+./kill_iteration.sh
 
 echo "spawning new iteration."
 echo "stdout > ./.out"

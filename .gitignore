@@ -10,6 +10,8 @@ electronbuild-output/
 
 yarn-error.log
 .vscode
-
+.err
+.out
+.iterate_pidfile
 .env
 target/
