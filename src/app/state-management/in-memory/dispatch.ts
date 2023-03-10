@@ -22,6 +22,7 @@ type DocumentNewMessage = {
 type ValidDispatchMessage = TestMessage | DocumentMessage | DocumentNewMessage;
 
 const dispatch = (message: ValidDispatchMessage) => {
+  console.info('DISPATCHING', message);
   switch (message.type) {
     case 'TEST_ON':
       setOnOrOff(true);
@@ -33,7 +34,7 @@ const dispatch = (message: ValidDispatchMessage) => {
       focusDocument(message.document_id);
       return;
     default:
-      console.log('DISPATCHING', message);
+      console.warn('UNHANDLED');
   }
 };
 
