@@ -27,6 +27,13 @@ addDocument(textMaker('Text B'));
 addDocument(spriteMaker('Sprite C'));
 addDocument(mapMaker('Map D'));
 
+function getWidgetInfo(): WidgetInfo[] {
+  return demoInitialPanelInfo;
+}
+function getDocumentInfo(): DocumentInfo[] {
+  return demoInitialDocumentInfo;
+}
+
 const demoInitialPanelInfo: WidgetInfo[] = [
   {id: 'PanelA', title: 'Panel A'},
   {id: 'PanelB', title: 'Panel B'},
@@ -40,6 +47,18 @@ const demoInitialDocumentInfo: DocumentInfo[] = [
   {id: 'DocA', title: 'Doc A', type: 'MAP'},
   {id: 'DocB', title: 'Doc B', type: 'MAP'},
 ];
+
+function createInitialPanelState(): PanelState[] {
+  if (!docLoaded) return [];
+
+  return demoInitialPanelState;
+}
+
+function createInitialDocumentState(): PanelState[] {
+  if (!docLoaded) return [];
+
+  return demoInitialDocumentState;
+}
 
 const demoInitialPanelState: PanelState[] = [
   {
@@ -73,24 +92,46 @@ const demoInitialDocumentState: PanelState[] = [
 
 function getCurrentPanels(): WidgetInfo[] {
   if (!docLoaded) return [];
-  return demoInitialPanelInfo;
+  return getWidgetInfo();
 }
 
 export {getCurrentPanels};
 
 function getCurrentDocuments(): DocumentInfo[] {
   if (!docLoaded) return [];
-  return demoInitialDocumentInfo;
+  return getDocumentInfo();
 }
 
 let _setPanelState: any;
 let _setDocPanelState: any;
+
+let _PanelState: any;
+let _DocumentState: any;
+
+let _CachedValidPanelState: any = null;
+let _CachedValidDocumentState: any = null;
+
 export function setOnOrOff(onOrOff: boolean) {
+  let newPanelState: any;
+  let newDocState: any;
+
   docLoaded = onOrOff;
-  updateDocumentManagerState(
-    docLoaded ? demoInitialDocumentState : [],
-    docLoaded ? demoInitialPanelState : [],
-  );
+
+  if (onOrOff) {
+    if (_CachedValidPanelState == null) {
+      _CachedValidPanelState = createInitialPanelState();
+      _CachedValidDocumentState = createInitialDocumentState();
+    }
+    newPanelState = _CachedValidPanelState;
+    newDocState = _CachedValidDocumentState;
+  } else {
+    _CachedValidPanelState = _PanelState;
+    _CachedValidDocumentState = _DocumentState;
+    newPanelState = [];
+    newDocState = [];
+  }
+
+  updateDocumentManagerState(newDocState, newPanelState);
 }
 
 export function updateDocumentManagerState(
@@ -103,15 +144,18 @@ export function updateDocumentManagerState(
 
 export function App() {
   const [panelState, setPanelState] = useState<PanelState[]>(
-    docLoaded ? demoInitialPanelState : [],
+    createInitialPanelState(),
   );
 
-  const [docPanelState, setDocPanelState] = useState<PanelState[]>(
-    docLoaded ? demoInitialDocumentState : [],
+  const [documentState, setDocumentState] = useState<PanelState[]>(
+    createInitialDocumentState(),
   );
 
   _setPanelState = setPanelState;
-  _setDocPanelState = setDocPanelState;
+  _setDocPanelState = setDocumentState;
+
+  _PanelState = panelState;
+  _DocumentState = documentState;
 
   return (
     <WindowProxy
@@ -177,8 +221,8 @@ export function App() {
             }}
             initialPanelState={panelState}
             setPanelState={setPanelState}
-            initialDocumentsState={docPanelState}
-            setDocumentState={setDocPanelState}
+            initialDocumentsState={documentState}
+            setDocumentState={setDocumentState}
             documents={getCurrentDocuments()}
             panels={getCurrentPanels()}
           />
