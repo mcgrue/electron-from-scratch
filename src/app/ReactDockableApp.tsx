@@ -90,14 +90,11 @@ export function setOnOrOff(onOrOff: boolean) {
 }
 
 export function updateDocumentManagerState(
-  panelState: PanelState[],
   documentState: PanelState[],
+  panelState: PanelState[],
 ) {
-  console.log(panelState);
-  console.log(documentState);
-  // TODO: actually pass this on?
-  _setPanelState(docLoaded ? panelsOnState : []);
-  _setDocPanelState(docLoaded ? docsOnState : []);
+  _setPanelState(panelState);
+  _setDocPanelState(documentState);
 }
 
 export function App() {
