@@ -27,29 +27,21 @@ addDocument(textMaker('Text B'));
 addDocument(spriteMaker('Sprite C'));
 addDocument(mapMaker('Map D'));
 
-function getCurrentPanels(): WidgetInfo[] {
-  if (!docLoaded) return [];
-  return [
-    {id: 'PanelA', title: 'Panel A'},
-    {id: 'PanelB', title: 'Panel B'},
-    {id: 'PanelC', title: 'Panel C'},
-    {id: 'PanelD', title: 'Panel D'},
-    {id: 'PanelE', title: 'Panel E'},
-    {id: 'PanelF', title: 'Panel F'},
-  ];
-}
+const demoInitialPanelInfo: WidgetInfo[] = [
+  {id: 'PanelA', title: 'Panel A'},
+  {id: 'PanelB', title: 'Panel B'},
+  {id: 'PanelC', title: 'Panel C'},
+  {id: 'PanelD', title: 'Panel D'},
+  {id: 'PanelE', title: 'Panel E'},
+  {id: 'PanelF', title: 'Panel F'},
+];
 
-export {getCurrentPanels};
+const demoInitialDocumentInfo: DocumentInfo[] = [
+  {id: 'DocA', title: 'Doc A', type: 'MAP'},
+  {id: 'DocB', title: 'Doc B', type: 'MAP'},
+];
 
-function getCurrentDocuments(): DocumentInfo[] {
-  if (!docLoaded) return [];
-  return [
-    {id: 'DocA', title: 'Doc A', type: 'MAP'},
-    {id: 'DocB', title: 'Doc B', type: 'MAP'},
-  ];
-}
-
-const panelsOnState: PanelState[] = [
+const demoInitialPanelState: PanelState[] = [
   {
     windows: [
       {
@@ -68,7 +60,7 @@ const panelsOnState: PanelState[] = [
   },
 ];
 
-const docsOnState: PanelState[] = [
+const demoInitialDocumentState: PanelState[] = [
   {
     windows: [
       {
@@ -79,13 +71,25 @@ const docsOnState: PanelState[] = [
   },
 ];
 
+function getCurrentPanels(): WidgetInfo[] {
+  if (!docLoaded) return [];
+  return demoInitialPanelInfo;
+}
+
+export {getCurrentPanels};
+
+function getCurrentDocuments(): DocumentInfo[] {
+  if (!docLoaded) return [];
+  return demoInitialDocumentInfo;
+}
+
 let _setPanelState: any;
 let _setDocPanelState: any;
 export function setOnOrOff(onOrOff: boolean) {
   docLoaded = onOrOff;
   updateDocumentManagerState(
-    docLoaded ? docsOnState : [],
-    docLoaded ? panelsOnState : [],
+    docLoaded ? demoInitialDocumentState : [],
+    docLoaded ? demoInitialPanelState : [],
   );
 }
 
@@ -99,11 +103,11 @@ export function updateDocumentManagerState(
 
 export function App() {
   const [panelState, setPanelState] = useState<PanelState[]>(
-    docLoaded ? panelsOnState : [],
+    docLoaded ? demoInitialPanelState : [],
   );
 
   const [docPanelState, setDocPanelState] = useState<PanelState[]>(
-    docLoaded ? docsOnState : [],
+    docLoaded ? demoInitialDocumentState : [],
   );
 
   _setPanelState = setPanelState;
