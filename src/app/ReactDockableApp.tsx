@@ -93,6 +93,9 @@ export function updateDocumentManagerState(
   panelState: PanelState[],
   documentState: PanelState[],
 ) {
+  console.log(panelState);
+  console.log(documentState);
+  // TODO: actually pass this on?
   _setPanelState(docLoaded ? panelsOnState : []);
   _setDocPanelState(docLoaded ? docsOnState : []);
 }
@@ -125,6 +128,7 @@ export function App() {
           flexDirection: 'column',
           // Dark Theme
         }}
+        data-testid="breaditor-browser-app"
       >
         <MenuBar
           dispatch={(foo: any) => {
