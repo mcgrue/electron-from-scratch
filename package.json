@@ -14,7 +14,7 @@
     "iterate": "yarn pre-build && echo DONE ESBUILDN && echo START && yarn start",
     "debug-in-chrome": "electron . --inspect-brk",
     "build-types": " TODO - ask DXM wtf to pass to tsc! ",
-    "test": "jest  --verbose --runInBand --detectOpenHandles --forceExit",
+    "test": "jest  --verbose --runInBand --detectOpenHandles --forceExit --bail=false",
     "test-watch": "jest --watch"
   },
   "author": "",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.4.0",
     "@types/node": "^17.0.22",
     "@types/react": "^18.0.28",

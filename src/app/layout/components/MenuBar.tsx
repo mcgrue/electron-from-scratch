@@ -68,7 +68,7 @@ const MenuBar: React.FC<MenuBarProps> = (props) => {
   }
 
   return (
-    <div className={css.container}>
+    <div className={css.container} data-testid="breaditor-browser-menubar">
       {/* Menu Items */}
       <div className={css.menu} style={{zIndex: 1000}}>
         {props.getMenu().map((control: any, i: any) => {
@@ -100,6 +100,7 @@ const MenuBar: React.FC<MenuBarProps> = (props) => {
       {/* Context Menu */}
       {state.selected !== null && (
         <ContextMenu
+          testId="breaditor-menubar-contextmenu"
           left={state.contextPos.x}
           top={state.contextPos.y}
           actions={props.getMenu()[state.selected].actions}
