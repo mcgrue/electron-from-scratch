@@ -22,7 +22,7 @@ describe('App', () => {
   });
 
   it('We can click on menu items', async () => {
-    const {getByText /*, getByPlaceholderText, queryByText*/} = render(<App />);
+    const {getByText} = render(<App />);
 
     const menuBar = screen.getByTestId('breaditor-browser-menubar');
 
@@ -34,5 +34,17 @@ describe('App', () => {
     expect(menuBar).toHaveTextContent('Panels on');
     const openMenu = screen.getByTestId('breaditor-menubar-contextmenu');
     expect(openMenu).toHaveTextContent('Panels on');
+  });
+
+  it('Toggle the panels on', async () => {
+    const {getByText} = render(<App />);
+
+    expect(screen.queryByText('Panel A')).toBeNull();
+
+    userEvent.click(getByText('Test'));
+    await waitFor(() => screen.findByTestId('breaditor-menubar-contextmenu'));
+    userEvent.click(getByText('Panels on'));
+
+    await waitFor(() => screen.findByText('Panel A'));
   });
 });
