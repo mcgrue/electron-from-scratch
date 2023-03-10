@@ -2,17 +2,39 @@ import {MapDocument} from './documents/MapDocument';
 import {SpriteDocument} from './documents/SpriteDocument';
 import {TextDocument} from './documents/TextDocument';
 import {updateStatusBar} from '../layout/components/StatusBar';
+import {DocumentInfo, WidgetInfo} from '../../../types/global';
 
 // @ts-ignore
 import emoji from 'emoji-dictionary';
 
 type BreaditorDocument = MapDocument | SpriteDocument | TextDocument;
 
+function getWidgetInfo(): WidgetInfo[] {
+  return demoInitialPanelInfo;
+}
+function getDocumentInfo(): DocumentInfo[] {
+  return demoInitialDocumentInfo;
+}
+
+const demoInitialPanelInfo: WidgetInfo[] = [
+  {id: 'PanelA', title: 'Panel A'},
+  {id: 'PanelB', title: 'Panel B'},
+  {id: 'PanelC', title: 'Panel C'},
+  {id: 'PanelD', title: 'Panel D'},
+  {id: 'PanelE', title: 'Panel E'},
+  {id: 'PanelF', title: 'Panel F'},
+];
+
+const demoInitialDocumentInfo: DocumentInfo[] = [
+  {id: 'DocA', title: 'Doc A', type: 'MAP'},
+  {id: 'DocB', title: 'Doc B', type: 'MAP'},
+];
+
 // @ts-ignore
 const ValidPanelsForDocumentType = {
   Map: ['Layers', 'Info', 'Entities', 'Zones', 'Screenview'],
-  Sprite: ['Info'],
-  Text: [],
+  Sprite: ['Info', 'Palette'],
+  Text: ['Todo'],
 };
 
 let _uuid_inc = 1;
@@ -74,4 +96,4 @@ function getDocumentById(id: string) {
   return myDoc;
 }
 
-export {focusDocument, addDocument};
+export {focusDocument, addDocument, getWidgetInfo, getDocumentInfo};

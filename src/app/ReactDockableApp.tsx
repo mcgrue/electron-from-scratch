@@ -10,11 +10,16 @@ import {StatusBar} from './layout/components/StatusBar';
 import {WorkspaceArea} from './layout/components/WorkspaceArea';
 
 import {getMenu} from './breaditor/menu';
-import {addDocument} from './breaditor/DocumentManager';
+import {
+  addDocument,
+  getWidgetInfo,
+  getDocumentInfo,
+} from './breaditor/DocumentManager';
 import {mapMaker} from './breaditor/documents/MapDocument';
 import {textMaker} from './breaditor/documents/TextDocument';
 import {spriteMaker} from './breaditor/documents/SpriteDocument';
 import {TOOLS} from './breaditor/tools/constants';
+
 import {DocumentInfo, WidgetInfo} from '../../types/global';
 
 // @ts-ignore
@@ -26,27 +31,6 @@ addDocument(mapMaker('Map A'));
 addDocument(textMaker('Text B'));
 addDocument(spriteMaker('Sprite C'));
 addDocument(mapMaker('Map D'));
-
-function getWidgetInfo(): WidgetInfo[] {
-  return demoInitialPanelInfo;
-}
-function getDocumentInfo(): DocumentInfo[] {
-  return demoInitialDocumentInfo;
-}
-
-const demoInitialPanelInfo: WidgetInfo[] = [
-  {id: 'PanelA', title: 'Panel A'},
-  {id: 'PanelB', title: 'Panel B'},
-  {id: 'PanelC', title: 'Panel C'},
-  {id: 'PanelD', title: 'Panel D'},
-  {id: 'PanelE', title: 'Panel E'},
-  {id: 'PanelF', title: 'Panel F'},
-];
-
-const demoInitialDocumentInfo: DocumentInfo[] = [
-  {id: 'DocA', title: 'Doc A', type: 'MAP'},
-  {id: 'DocB', title: 'Doc B', type: 'MAP'},
-];
 
 function createInitialPanelState(): PanelState[] {
   if (!docLoaded) return [];
