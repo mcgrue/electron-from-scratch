@@ -15,7 +15,7 @@ const StatusBar: React.FC<StatusBarProps> = (props) => {
   _stateUpdate = setState;
 
   return (
-    <div className={css.container}>
+    <div className={css.container} data-testid="breaditor-browser-statusbar">
       {statuses.map((str: string, idx: number) => (
         <PropertyGroup key={idx}>{str}</PropertyGroup>
       ))}

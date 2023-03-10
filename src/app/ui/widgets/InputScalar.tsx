@@ -8,8 +8,9 @@ interface InputScalarProps {
   value: number;
   min: number;
   max: number;
-  name: string;
   unit: string;
+
+  name: string;
 }
 
 const InputScalar: React.FC<InputScalarProps> = (props) => {
@@ -59,6 +60,7 @@ const InputScalar: React.FC<InputScalarProps> = (props) => {
 
       <div style={{position: 'relative', height: 26}}>
         <input
+          name={props.name}
           type="text"
           className={css.input}
           style={{backgroundColor: 'rgba(0,0,0,0.25)'}}
