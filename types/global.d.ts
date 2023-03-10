@@ -8,7 +8,7 @@ declare global {
 interface DocumentInfo {
   id: string;
   title: string;
-  type: 'MAP' | 'SPRITE' | 'TEXT';
+  type: DocumentType;
 }
 
 interface WidgetInfo {
@@ -20,3 +20,12 @@ interface Vec2xy {
   x: number;
   y: number;
 }
+
+/*
+export type SpecificMap<K extends string> = {
+  [key in K]: string[];
+};
+*/
+
+// export type {DocumentType, SpecificMap};
+// export {WidgetInfo, Vec2xy};

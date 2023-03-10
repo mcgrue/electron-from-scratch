@@ -8,7 +8,9 @@ interface StatusBarProps {
   initialStatuses: string[];
 }
 
-let _stateUpdate: any;
+let _stateUpdate = (data: any) => {
+  console.warn(`StatusBar::_stateUpdate uninitialized, passed: `, data);
+};
 
 const StatusBar: React.FC<StatusBarProps> = (props) => {
   const [statuses, setState] = useState(props.initialStatuses);
