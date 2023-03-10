@@ -43,63 +43,60 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
   ]);
 
   return (
-    <div data-testid="breaditor-browser-workspacearea">
-      <Dockable
-        initialState={layoutState}
-        onUpdate={(state) => {
-          setLayoutState(state);
+    <Dockable
+      initialState={layoutState}
+      onUpdate={(state) => {
+        setLayoutState(state);
+      }}
+      spacing={3}
+      testId="breaditor-browser-workspacearea"
+    >
+      <div
+        title={'Documents (Should Be Hidden)'}
+        id={'documents-container'}
+        style={{
+          display: 'flex',
+          flexGrow: 1,
+          width: '100%',
+          height: '100%',
         }}
-        spacing={3}
       >
-        <div
-          title={'Documents (Should Be Hidden)'}
-          id={'documents-container'}
-          style={{
-            display: 'flex',
-            flexGrow: 1,
-            width: '100%',
-            height: '100%',
+        <Dockable
+          initialState={props.initialDocumentsState}
+          onUpdate={(state) => {
+            props.setDocumentState(state);
+          }}
+          onActive={(id) => {
+            dispatch({type: 'DOC_FOCUS', document_id: id});
           }}
         >
-          <Dockable
-            initialState={props.initialDocumentsState}
-            onUpdate={(state) => {
-              props.setDocumentState(state);
-            }}
-            onActive={(id) => {
-              dispatch({type: 'DOC_FOCUS', document_id: id});
-            }}
-          >
-            {props.documents.map((doc) => {
-              return <Widget key={doc.id} id={doc.id} title={doc.title} />;
-            })}
-          </Dockable>
-        </div>
-        <div
-          title={'Panels (Should Be Hidden)'}
-          id={'panels-container'}
-          style={{
-            display: 'flex',
-            flexGrow: 1,
-            width: '100%',
-            height: '100%',
+          {props.documents.map((doc) => {
+            return <Widget key={doc.id} id={doc.id} title={doc.title} />;
+          })}
+        </Dockable>
+      </div>
+      <div
+        title={'Panels (Should Be Hidden)'}
+        id={'panels-container'}
+        style={{
+          display: 'flex',
+          flexGrow: 1,
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <Dockable
+          initialState={props.initialPanelState}
+          onUpdate={(state) => {
+            props.setPanelState(state);
           }}
         >
-          <Dockable
-            initialState={props.initialPanelState}
-            onUpdate={(state) => {
-              props.setPanelState(state);
-            }}
-          >
-            {props.panels.map((panel) => {
-              return (
-                <Widget id={panel.id} key={panel.id} title={panel.title} />
-              );
-            })}
-          </Dockable>
-        </div>
-      </Dockable>
-    </div>
+          {props.panels.map((panel) => {
+            return <Widget id={panel.id} key={panel.id} title={panel.title} />;
+          })}
+        </Dockable>
+      </div>
+    </Dockable>
   );
 };
 
