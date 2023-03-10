@@ -9,7 +9,8 @@ interface StatusBarProps {
 }
 
 let _stateUpdate = (data: any) => {
-  console.warn(`StatusBar::_stateUpdate uninitialized, passed: `, data);
+  data = data;
+  // console.warn(`StatusBar::_stateUpdate uninitialized, passed: `, data);
 };
 
 const StatusBar: React.FC<StatusBarProps> = (props) => {
@@ -26,7 +27,7 @@ const StatusBar: React.FC<StatusBarProps> = (props) => {
 };
 
 function updateStatusBar(newStatuses: string[]) {
-  console.log('updateStatusBar', newStatuses);
+  //console.log('updateStatusBar', newStatuses);
   _stateUpdate(newStatuses);
 }
 

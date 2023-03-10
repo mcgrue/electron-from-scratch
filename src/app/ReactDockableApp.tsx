@@ -11,10 +11,14 @@ import {WorkspaceArea} from './layout/components/WorkspaceArea';
 
 import {getMenu} from './breaditor/menu';
 import {
+  activeDocument,
   addDocument,
   getWidgetInfo,
   getDocumentInfo,
+  createInitialDocumentInfoForLoadedDocuments,
+  createInitialPanelInfoForDocumentType,
 } from './breaditor/DocumentManager';
+
 import {mapMaker} from './breaditor/documents/MapDocument';
 import {textMaker} from './breaditor/documents/TextDocument';
 import {spriteMaker} from './breaditor/documents/SpriteDocument';
@@ -35,51 +39,100 @@ addDocument(mapMaker('Map D'));
 function createInitialPanelState(): PanelState[] {
   if (!docLoaded) return [];
 
-  return demoInitialPanelState;
+  const ad = activeDocument();
+  if (!ad) return [];
+
+  return createPanelStateForDocumentInfoList(
+    createInitialPanelInfoForDocumentType(ad.info.type),
+  );
 }
 
 function createInitialDocumentState(): PanelState[] {
   if (!docLoaded) return [];
 
-  return demoInitialDocumentState;
+  return createPanelStateForWidgetInfoList(
+    createInitialDocumentInfoForLoadedDocuments(),
+  );
 }
 
-const demoInitialPanelState: PanelState[] = [
-  {
-    windows: [
-      {
-        selected: 0,
-        widgets: ['PanelA', 'PanelB'],
-      },
-      {
-        selected: 0,
-        widgets: ['PanelC', 'PanelD', 'PanelE'],
-      },
-      {
-        selected: 0,
-        widgets: ['PanelF'],
-      },
-    ],
-  },
-];
+function createPanelStateForDocumentInfoList(info: WidgetInfo[]): PanelState[] {
+  let selected = 0;
+  const active = activeDocument();
+  const widgets: string[] = [];
+  for (let index = 0; index < info.length; index++) {
+    const curId = info[index].id;
 
-const demoInitialDocumentState: PanelState[] = [
-  {
-    windows: [
-      {
-        selected: 0,
-        widgets: ['DocA', 'DocB'],
-      },
-    ],
-  },
-];
+    if (active != null && active.info.id == curId) {
+      selected = index;
+    }
+
+    widgets.push(info[index].id);
+  }
+
+  return [
+    {
+      windows: [
+        {
+          selected: selected,
+          widgets: widgets,
+        },
+      ],
+    },
+  ];
+}
+
+function createPanelStateForWidgetInfoList(info: WidgetInfo[]): PanelState[] {
+  const bin1: string[] = [];
+  const bin2: string[] = [];
+  const bin3: string[] = [];
+
+  for (let index = 0; index < info.length; index++) {
+    const curId = info[index].id;
+
+    if (index < 2) {
+      bin1.push(curId);
+    } else if (index < 4) {
+      bin2.push(curId);
+    } else {
+      bin3.push(curId);
+    }
+  }
+
+  let ret = [{windows: []}];
+
+  const windows: any[] = [];
+
+  if (bin1.length > 0) {
+    windows.push({
+      selected: 0,
+      widgets: bin1,
+    });
+  }
+
+  if (bin2.length > 0) {
+    windows.push({
+      selected: 0,
+      widgets: bin2,
+    });
+  }
+
+  if (bin3.length > 0) {
+    windows.push({
+      selected: 0,
+      widgets: bin3,
+    });
+  }
+
+  // @ts-ignore
+  ret[0].windows = windows;
+
+  return ret as PanelState[];
+}
 
 function getCurrentPanels(): WidgetInfo[] {
   if (!docLoaded) return [];
   return getWidgetInfo();
 }
-
-export {getCurrentPanels};
 
 function getCurrentDocuments(): DocumentInfo[] {
   if (!docLoaded) return [];
@@ -95,7 +148,7 @@ let _DocumentState: any;
 let _CachedValidPanelState: any = null;
 let _CachedValidDocumentState: any = null;
 
-export function setOnOrOff(onOrOff: boolean) {
+function setOnOrOff(onOrOff: boolean) {
   let newPanelState: any;
   let newDocState: any;
 
@@ -118,7 +171,7 @@ export function setOnOrOff(onOrOff: boolean) {
   updateDocumentManagerState(newDocState, newPanelState);
 }
 
-export function updateDocumentManagerState(
+function updateDocumentManagerState(
   documentState: PanelState[],
   panelState: PanelState[],
 ) {
@@ -126,7 +179,7 @@ export function updateDocumentManagerState(
   _setDocPanelState(documentState);
 }
 
-export function App() {
+function App() {
   const [panelState, setPanelState] = useState<PanelState[]>(
     createInitialPanelState(),
   );
@@ -217,10 +270,20 @@ export function App() {
   );
 }
 
-export function init() {
+function init() {
   const domNode = document.getElementById('react-root') as Element;
   console.log(domNode, 'domNode');
   const root = createRoot(domNode);
 
   root.render(<App />);
 }
+
+export {
+  App,
+  createPanelStateForDocumentInfoList,
+  createPanelStateForWidgetInfoList,
+  getCurrentPanels,
+  init,
+  setOnOrOff,
+  updateDocumentManagerState,
+};

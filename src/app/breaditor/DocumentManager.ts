@@ -12,25 +12,65 @@ type BreaditorDocument = MapDocument | SpriteDocument | TextDocument;
 type NullableBreaditorDocument = BreaditorDocument | null;
 
 function getWidgetInfo(): WidgetInfo[] {
-  return demoInitialPanelInfo;
+  const ad = activeDocument();
+
+  if (ad !== null) {
+    return createInitialPanelInfoForDocumentType(ad.info.type);
+  }
+
+  return [];
 }
 function getDocumentInfo(): DocumentInfo[] {
-  return demoInitialDocumentInfo;
+  /*
+  [{id: 'DocA', title: 'Doc A', type: 'MAP'},]
+*/
+
+  if (_docs.length > 0) {
+    return createInitialDocumentInfoForLoadedDocuments();
+  }
+
+  return [];
 }
 
-const demoInitialPanelInfo: WidgetInfo[] = [
-  {id: 'PanelA', title: 'Panel A'},
-  {id: 'PanelB', title: 'Panel B'},
-  {id: 'PanelC', title: 'Panel C'},
-  {id: 'PanelD', title: 'Panel D'},
-  {id: 'PanelE', title: 'Panel E'},
-  {id: 'PanelF', title: 'Panel F'},
-];
+function createInitialDocumentInfoForLoadedDocuments(): DocumentInfo[] {
+  /*
+      [{id: 'PanelA', title: 'Panel A'},]
+  */
 
-const demoInitialDocumentInfo: DocumentInfo[] = [
-  {id: 'DocA', title: 'Doc A', type: 'MAP'},
-  {id: 'DocB', title: 'Doc B', type: 'MAP'},
-];
+  let ret: DocumentInfo[] = [];
+
+  _docs.forEach((doc) => {
+    ret.push({
+      id: `${doc.info.id}`, //TODO: maybe have seperate internal id and react tree id?
+      title: `${doc.info.title} Document`,
+      type: doc.info.type,
+    });
+  });
+
+  // console.log('createInitialDocumentInfoForLoadedDocuments');
+  // console.log(ret);
+
+  return ret;
+}
+
+function createInitialPanelInfoForDocumentType(dt: DocumentType): WidgetInfo[] {
+  /*
+      [{id: 'PanelA', title: 'Panel A'},]
+  */
+
+  let ret: WidgetInfo[] = [];
+  const validPanels = ValidPanelsForDocumentType[dt];
+
+  validPanels.forEach((name) => {
+    ret.push({id: `Panel${name}`, title: `${name} Panel`}); //TODO: `Panel${name}` should be a "Make ReactId For Panel" function or something
+  });
+
+  //console.log('createInitialPanelInfoForDocumentType');
+  // console.log(`[${dt}]`);
+  // console.log(ret);
+
+  return ret;
+}
 
 type SpecificMap<K extends string> = {
   [key in K]: string[];
@@ -159,24 +199,21 @@ function focusDocument(id: string) {
   }
 }
 
-function getDocumentById(id: string) {
-  let myDoc: NullableBreaditorDocument = null;
-  _docs.map((d) => {
-    if (d.info.id == id) {
-      if (myDoc == null) {
-        myDoc = d;
-      } else {
-        debugger;
-        throw new Error('Two docs with the same key?!');
-      }
+function getDocumentById(id: string): NullableBreaditorDocument {
+  for (let index = 0; index < _docs.length; index++) {
+    if (_docs[index].info.id === id) {
+      return _docs[index];
     }
-  });
-  return myDoc;
+  }
+
+  return null;
 }
 
 export {
   focusDocument,
   activeDocument,
+  createInitialPanelInfoForDocumentType,
+  createInitialDocumentInfoForLoadedDocuments,
   getDocuments,
   addDocument,
   removeDocument,

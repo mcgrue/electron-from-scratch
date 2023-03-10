@@ -22,7 +22,7 @@ type DocumentNewMessage = {
 type ValidDispatchMessage = TestMessage | DocumentMessage | DocumentNewMessage;
 
 const dispatch = (message: ValidDispatchMessage) => {
-  console.info('DISPATCHING', message);
+  //console.info('DISPATCHING', message);
   switch (message.type) {
     case 'TEST_ON':
       setOnOrOff(true);

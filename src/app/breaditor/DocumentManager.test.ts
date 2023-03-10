@@ -5,8 +5,12 @@ import {
   focusDocument,
   getDocuments,
   removeDocument,
+  createInitialPanelInfoForDocumentType,
+  createInitialDocumentInfoForLoadedDocuments,
 } from './DocumentManager';
 import {mapMaker} from '../breaditor/documents/MapDocument';
+import {spriteMaker} from '../breaditor/documents/SpriteDocument';
+import {textMaker} from '../breaditor/documents/TextDocument';
 
 /*
 
@@ -155,4 +159,69 @@ test('Deleting the last document will result in a null active document', () => {
   expect(map1).toBe(activeDocument());
   removeDocument(map1);
   expect(activeDocument()).toBeNull();
+});
+
+test('verify initial panel info for maps', () => {
+  const mapPanels = createInitialPanelInfoForDocumentType('MAP');
+
+  const expected = [
+    {id: 'PanelLayers', title: 'Layers Panel'},
+    {id: 'PanelInfo', title: 'Info Panel'},
+    {id: 'PanelEntities', title: 'Entities Panel'},
+    {id: 'PanelZones', title: 'Zones Panel'},
+    {id: 'PanelScreenview', title: 'Screenview Panel'},
+  ];
+
+  expect(mapPanels).toEqual(expected);
+});
+
+test('verify initial panel info for text', () => {
+  const textPanels = createInitialPanelInfoForDocumentType('TEXT');
+
+  const expected = [{id: 'PanelTodo', title: 'Todo Panel'}];
+
+  expect(textPanels).toEqual(expected);
+});
+
+test('verify initial panel info for sprite', () => {
+  const spritePanels = createInitialPanelInfoForDocumentType('SPRITE');
+
+  const expected = [
+    {id: 'PanelInfo', title: 'Info Panel'},
+    {id: 'PanelPalette', title: 'Palette Panel'},
+  ];
+
+  expect(spritePanels).toEqual(expected);
+});
+
+test('verify initial document info for active document set', () => {
+  const map1 = mapMaker('Test Map A');
+  const sprite = spriteMaker('Test Sprite B');
+  const code = textMaker('Test Source Code C');
+  const map2 = mapMaker('Test Map D');
+  addDocument(map1);
+  addDocument(sprite);
+  addDocument(code);
+  addDocument(map2);
+
+  const info = createInitialDocumentInfoForLoadedDocuments();
+  const expected = [
+    {id: 'Docuuid_20', title: 'Test Map A Document', type: 'MAP'},
+    {id: 'Docuuid_21', title: 'Test Sprite B Document', type: 'SPRITE'},
+    {id: 'Docuuid_22', title: 'Test Source Code C Document', type: 'TEXT'},
+    {id: 'Docuuid_23', title: 'Test Map D Document', type: 'MAP'},
+  ];
+
+  // let's not compare the ids.  they're silly and should be uuids.
+  expect(info[0].title).toEqual(expected[0].title);
+  expect(info[1].title).toEqual(expected[1].title);
+  expect(info[2].title).toEqual(expected[2].title);
+  expect(info[3].title).toEqual(expected[3].title);
+
+  expect(info[0].type).toEqual(expected[0].type);
+  expect(info[1].type).toEqual(expected[1].type);
+  expect(info[2].type).toEqual(expected[2].type);
+  expect(info[3].type).toEqual(expected[3].type);
+
+  expect(info.length).toBe(expected.length);
 });
