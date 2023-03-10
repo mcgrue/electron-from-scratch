@@ -9,6 +9,7 @@ interface ContextMenuProps {
   top: number;
   actions?: any;
   onClickOut: () => void;
+  testId?: string;
 }
 
 const handleClickOut = (props: ContextMenuProps) => {
@@ -73,6 +74,8 @@ const ContextMenu: React.FC<ContextMenuProps> = (props) => {
     //};
   }, []); // Empty dependency array to only run once
 
+  const testIdAttribute = props.testId ? {'data-testid': props.testId} : {};
+
   return (
     <div
       className={css.container}
@@ -87,6 +90,7 @@ const ContextMenu: React.FC<ContextMenuProps> = (props) => {
         }}
         className={css.contextMenu}
         ref={containerRef}
+        {...testIdAttribute}
       >
         {props.actions.map((actionGroup: any, i: number, arr: any[]) => {
           switch (actionGroup.type) {

@@ -3,8 +3,9 @@
  */
 
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 import {App} from './ReactDockableApp';
 
 describe('App', () => {
@@ -18,5 +19,20 @@ describe('App', () => {
     expect(app).toBeInTheDocument();
     expect(statusBar).toHaveTextContent('Welcome to the Breaditor');
     expect(workspaceArea).not.toHaveTextContent('Panel A');
+  });
+
+  it('We can click on menu items', async () => {
+    const {getByText /*, getByPlaceholderText, queryByText*/} = render(<App />);
+
+    const menuBar = screen.getByTestId('breaditor-browser-menubar');
+
+    expect(menuBar).not.toHaveTextContent('Panels on');
+
+    userEvent.click(getByText('Test'));
+    await waitFor(() => screen.findByTestId('breaditor-menubar-contextmenu'));
+
+    expect(menuBar).toHaveTextContent('Panels on');
+    const openMenu = screen.getByTestId('breaditor-menubar-contextmenu');
+    expect(openMenu).toHaveTextContent('Panels on');
   });
 });
