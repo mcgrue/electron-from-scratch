@@ -4,6 +4,12 @@ import {TextDocument} from './documents/TextDocument';
 import {updateStatusBar} from '../layout/components/StatusBar';
 import {DocumentInfo, WidgetInfo} from '../../../types/global.d';
 
+import {
+  updateDocumentManagerState,
+  createPanelStateForWidgetInfoList,
+  getDocumentState,
+} from '../ReactDockableApp';
+
 // @ts-ignore
 import emoji from 'emoji-dictionary';
 
@@ -196,6 +202,13 @@ function focusDocument(id: string) {
     ]);
 
     _activeDocument = myDoc;
+
+    updateDocumentManagerState(
+      getDocumentState(),
+      createPanelStateForWidgetInfoList(
+        createInitialPanelInfoForDocumentType(_activeDocument.info.type),
+      ),
+    );
   }
 }
 
