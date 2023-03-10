@@ -42,7 +42,7 @@ function createInitialPanelState(): PanelState[] {
   const ad = activeDocument();
   if (!ad) return [];
 
-  return createPanelStateForDocumentInfoList(
+  return createPanelStateForWidgetInfoList(
     createInitialPanelInfoForDocumentType(ad.info.type),
   );
 }
@@ -50,7 +50,7 @@ function createInitialPanelState(): PanelState[] {
 function createInitialDocumentState(): PanelState[] {
   if (!docLoaded) return [];
 
-  return createPanelStateForWidgetInfoList(
+  return createPanelStateForDocumentInfoList(
     createInitialDocumentInfoForLoadedDocuments(),
   );
 }
