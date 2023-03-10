@@ -1,5 +1,12 @@
 import {BrowserWindow, app, ipcMain, session} from 'electron';
-const path = require('path');
+import {
+  default as installExtension,
+  REACT_DEVELOPER_TOOLS,
+  JQUERY_DEBUGGER,
+  REDUX_DEVTOOLS,
+} from 'electron-devtools-installer';
+import path from 'path';
+
 const dotenv = require('dotenv').config();
 
 let mainWindow: BrowserWindow;
@@ -8,6 +15,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     frame: false, // no title bar
     webPreferences: {
+      contextIsolation: true,
       nodeIntegration: true,
       preload: path.join(__dirname, '../app/', 'preload.js'), // for all those main/renderer bridge things
       // enableRemoteModule: true,
@@ -20,7 +28,7 @@ function createWindow() {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
-        'Content-Security-Policy': ['*'],
+        'Content-Security-Policy': ["default-src 'self' *"],
       },
     });
   });
@@ -95,7 +103,13 @@ function createWindow() {
   }
 }
 
-app.on('ready', () => {
+app.whenReady().then(() => {
+  installExtension([REACT_DEVELOPER_TOOLS, JQUERY_DEBUGGER, REDUX_DEVTOOLS])
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err));
+});
+
+app.on('ready', async () => {
   createWindow();
 
   app.on('activate', function () {
