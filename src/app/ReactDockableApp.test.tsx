@@ -6,7 +6,11 @@ import React from 'react';
 import {render, screen, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import {App} from './ReactDockableApp';
+import {
+  App,
+  createPanelStateForDocumentInfoList,
+  createPanelStateForWidgetInfoList,
+} from './ReactDockableApp';
 
 describe('App', () => {
   it('renders the component correctly', () => {
@@ -18,7 +22,7 @@ describe('App', () => {
 
     expect(app).toBeInTheDocument();
     expect(statusBar).toHaveTextContent('Welcome to the Breaditor');
-    expect(workspaceArea).not.toHaveTextContent('Panel A');
+    expect(workspaceArea).not.toHaveTextContent('Layers Panel');
   });
 
   it('We can click on menu items', async () => {
@@ -39,12 +43,56 @@ describe('App', () => {
   it('Toggle the panels on', async () => {
     const {getByText} = render(<App />);
 
-    expect(screen.queryByText('Panel A')).toBeNull();
+    expect(screen.queryByText('Layers Panel')).toBeNull();
 
     userEvent.click(getByText('Test'));
     await waitFor(() => screen.findByTestId('breaditor-menubar-contextmenu'));
     userEvent.click(getByText('Panels on'));
 
-    await waitFor(() => screen.findByText('Panel A'));
+    await waitFor(() => screen.findByText('Layers Panel')); // this should fail, needs to be updated to new panel that exists
   });
+});
+
+test('createPanelStateForDocumentInfoList', () => {
+  const input = [
+    {id: 'Docuuid_20', title: 'Test Map A Document', type: 'MAP'},
+    {id: 'Docuuid_21', title: 'Test Sprite B Document', type: 'SPRITE'},
+    {id: 'Docuuid_22', title: 'Test Source Code C Document', type: 'TEXT'},
+    {id: 'Docuuid_23', title: 'Test Map D Document', type: 'MAP'},
+  ];
+  const result = createPanelStateForDocumentInfoList(input);
+
+  const expected = [
+    {
+      windows: [
+        {
+          selected: 0,
+          widgets: ['Docuuid_20', 'Docuuid_21', 'Docuuid_22', 'Docuuid_23'],
+        },
+      ],
+    },
+  ];
+
+  expect(result).toEqual(expected);
+});
+
+test('createPanelStateForWidgetInfoList', () => {
+  const input = [
+    {id: 'PanelLayers', title: 'Layers Panel'},
+    {id: 'PanelInfo', title: 'Info Panel'},
+    {id: 'PanelEntities', title: 'Entities Panel'},
+    {id: 'PanelZones', title: 'Zones Panel'},
+    {id: 'PanelScreenview', title: 'Screenview Panel'},
+  ];
+  const result = createPanelStateForWidgetInfoList(input);
+  const expected = [
+    {
+      windows: [
+        {selected: 0, widgets: ['PanelLayers', 'PanelInfo']},
+        {selected: 0, widgets: ['PanelEntities', 'PanelZones']},
+        {selected: 0, widgets: ['PanelScreenview']},
+      ],
+    },
+  ];
+  expect(result).toEqual(expected);
 });

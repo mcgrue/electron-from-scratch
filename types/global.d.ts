@@ -1,4 +1,5 @@
 import assertType from 'assert';
+import {DocumentType} from '../src/app/breaditor/DocumentManager';
 
 //it's a kind of magic!
 declare global {
