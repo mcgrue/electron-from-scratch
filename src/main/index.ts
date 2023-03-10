@@ -1,10 +1,11 @@
 import {BrowserWindow, app, ipcMain, session} from 'electron';
-import {
+/*import {
   default as installExtension,
   REACT_DEVELOPER_TOOLS,
   JQUERY_DEBUGGER,
   REDUX_DEVTOOLS,
 } from 'electron-devtools-installer';
+*/
 import path from 'path';
 
 const dotenv = require('dotenv').config();
@@ -28,7 +29,7 @@ function createWindow() {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
-        'Content-Security-Policy': ["default-src 'self' *"],
+        'Content-Security-Policy': [''], // "default-src 'self' *" //'unsafe-inline', ???
       },
     });
   });
@@ -103,11 +104,12 @@ function createWindow() {
   }
 }
 
-app.whenReady().then(() => {
-  installExtension([REACT_DEVELOPER_TOOLS, JQUERY_DEBUGGER, REDUX_DEVTOOLS])
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-});
+// Currently broken?  wtf
+// app.whenReady().then(() => {
+//   installExtension([REACT_DEVELOPER_TOOLS, JQUERY_DEBUGGER, REDUX_DEVTOOLS])
+//     .then((name) => console.log(`Added Extension:  ${name}`))
+//     .catch((err) => console.log('An error occurred: ', err));
+// });
 
 app.on('ready', async () => {
   createWindow();
