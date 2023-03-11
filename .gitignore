@@ -8,6 +8,8 @@ dist/
 electronbuild-resources/
 electronbuild-output/
 
+fuck-tsc/
+
 yarn-error.log
 .vscode
 .err

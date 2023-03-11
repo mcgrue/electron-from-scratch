@@ -3,8 +3,30 @@ const copyPlugin = require('esbuild-plugin-copy');
 const copyStaticFiles = require('esbuild-copy-static-files');
 const cssModulesPlugin = require('esbuild-css-modules-plugin');
 const rimraf = require('rimraf');
+const child_process = require('child_process');
 
-console.log(copyPlugin);
+console.log('CWD:', process.cwd());
+
+/*
+// Run tsc to check for type errors
+const tsc = child_process.spawnSync(
+  'tsc',
+  ['--noEmit', '--project tsconfig.json'],
+  {
+    stdio: 'inherit',
+  },
+);
+
+// If there were errors, log an error message and exit with an error code
+if (tsc.status !== 0) {
+  console.error(
+    'TypeScript compilation failed, please fix errors before building with esbuild',
+  );
+  console.error('OUT:', tsc.stdout);
+  console.error('ERR:', tsc.stderr);
+  process.exit(1);
+}
+*/
 
 // TODO: make these settable from args
 const sourcemap = true;
@@ -18,7 +40,7 @@ const minify = false;
   /// server translation
   const result = await esbuild
     .build({
-      tsconfig: 'build-infrastructure/tsconfig.json',
+      tsconfig: 'tsconfig.json',
 
       // logLevel: 'verbose',
 
@@ -56,7 +78,7 @@ const minify = false;
   /// client translation
   const result = await esbuild
     .build({
-      tsconfig: 'build-infrastructure/tsconfig.json',
+      tsconfig: 'tsconfig.json',
 
       // logLevel: 'verbose',
 

@@ -41,7 +41,6 @@ function createInitialPanelState(): PanelState[] {
 
   const ad = activeDocument();
   if (!ad) return [];
-
   return createPanelStateForWidgetInfoList(
     createInitialPanelInfoForDocumentType(ad.info.type),
   );

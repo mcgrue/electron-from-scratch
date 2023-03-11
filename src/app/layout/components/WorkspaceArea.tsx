@@ -7,6 +7,9 @@ import React, {
 } from 'react';
 import {Dockable, PanelState} from 'react-dockable-ts';
 import {DocumentInfo, WidgetInfo} from '../../../../types/global';
+import {Widget} from './Widget';
+
+// @ts-ignore
 import css from './WorkspaceArea.module.css';
 import {dispatch} from '../../state-management/in-memory/dispatch';
 
@@ -111,14 +114,5 @@ const WorkspaceArea: React.FC<WorkspaceAreaProps> = (props) => {
     </div>
   );
 };
-
-type WidgetTypes = {
-  id: string;
-  title: string;
-};
-
-function Widget({id, title}: WidgetTypes) {
-  return <div key={id}>{title} test</div>;
-}
 
 export {WorkspaceArea};

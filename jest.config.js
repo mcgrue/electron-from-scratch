@@ -1,14 +1,16 @@
 module.exports = {
   globals: {
+    __TEST__: true,
+    TextEncoder,
+    TextDecoder,
     'ts-jest': {
-      tsconfig: '<rootDir>/build-infrastructure/tsconfig.json',
+      tsconfig: 'tsconfig.json',
     },
-    TextEncoder: require('util').TextEncoder,
-    TextDecoder: require('util').TextDecoder,
   },
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.[tj]sx?$': ['ts-jest', {}],
-    '^.+\\.css?$': ['<rootDir>/node_modules/jest-css-modules-transform', {}],
+    '.+\\.(ts|tsx|js|jsx)$': 'ts-jest',
+    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
   },
+  setupFiles: ['<rootDir>/test-infrastructure/globalInclude.js'],
 };

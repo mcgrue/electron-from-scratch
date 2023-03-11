@@ -2,10 +2,10 @@ import React from 'react';
 import reducer from './reducer.js';
 
 class Store {
-  state = reducer();
-  observers = [];
+  state = reducer(null, {}); // initialize?
+  observers: any[] = [];
 
-  dispatch(action, ...rest) {
+  dispatch(action: any, ...rest: any[]) {
     // console.log({ action, ...rest });
     this.state = reducer(this.state, action, ...rest);
     this.observers.forEach((observer) => {
@@ -19,10 +19,10 @@ const store = new Store();
 
 export default store;
 
-export const observer = (ComponentClass) => {
+export const observer = (ComponentClass: any) => {
   return class extends React.Component {
-    constructor() {
-      super();
+    constructor(props: any) {
+      super(props);
       store.observers.push(this);
     }
 
@@ -30,7 +30,9 @@ export const observer = (ComponentClass) => {
       return (
         <ComponentClass
           state={store.state}
-          dispatch={(action, ...rest) => store.dispatch(action, ...rest)}
+          dispatch={(action: any, ...rest: any[]) =>
+            store.dispatch(action, ...rest)
+          }
           {...ComponentClass.props}
           {...this.props}
         />

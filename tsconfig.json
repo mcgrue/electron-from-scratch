@@ -18,16 +18,11 @@
     "strict": true,
     "target": "esnext",
 
-    "outDir": "../main",
+    "outDir": "fuck-tsc", // shouldnt happen unless you do a `yarn tsc --project ./`
 
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules",
-        "extensions": ["css", "module.css"]
-      }
-    ]
+    "plugins": [{"name": "typescript-plugin-css-modules"}]
   },
   "exclude": ["node_modules/**"],
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.css"],
-  "typeRoots": ["./node_modules/@types", "./typings"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.css"],
+  "typeRoots": ["src/node_modules/@types", "types"]
 }

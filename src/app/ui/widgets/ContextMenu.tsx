@@ -139,23 +139,27 @@ const ContextMenu: React.FC<ContextMenuProps> = (props) => {
             case 'bools':
               return (
                 <React.Fragment key={i}>
-                  {Object.keys(actionGroup.options).map((option, a) => (
-                    <div
-                      key={a}
-                      className={css.contextMenuItem}
-                      onClick={() => {
-                        handleAction(
-                          actionGroup.options[option].function,
-                          props,
-                        );
-                      }}
-                    >
-                      <div className={css.checkbox}>
-                        {actionGroup.options[option].value === true ? '✔' : ' '}
+                  {Object.keys(actionGroup.options).map(
+                    (option: any, a: any) => (
+                      <div
+                        key={a}
+                        className={css.contextMenuItem}
+                        onClick={() => {
+                          handleAction(
+                            actionGroup.options[option].function,
+                            props,
+                          );
+                        }}
+                      >
+                        <div className={css.checkbox}>
+                          {actionGroup.options[option].value === true
+                            ? '✔'
+                            : ' '}
+                        </div>
+                        <span>{option}</span>
                       </div>
-                      <span>{option}</span>
-                    </div>
-                  ))}
+                    ),
+                  )}
                   {i !== arr.length - 1 ? (
                     <div className={css.contextMenuDivider} />
                   ) : null}

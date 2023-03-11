@@ -1,3 +1,11 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import {mapMaker} from '../breaditor/documents/MapDocument';
+import {spriteMaker} from '../breaditor/documents/SpriteDocument';
+import {textMaker} from '../breaditor/documents/TextDocument';
+
 import {
   _TEST_reset,
   activeDocument,
@@ -8,19 +16,6 @@ import {
   createInitialPanelInfoForDocumentType,
   createInitialDocumentInfoForLoadedDocuments,
 } from './DocumentManager';
-import {mapMaker} from '../breaditor/documents/MapDocument';
-import {spriteMaker} from '../breaditor/documents/SpriteDocument';
-import {textMaker} from '../breaditor/documents/TextDocument';
-
-/*
-
-  focusDocument,
-  activeDocument,
-  addDocument,
-  getWidgetInfo,
-  getDocumentInfo,
-
-*/
 
 beforeEach(() => {
   _TEST_reset();

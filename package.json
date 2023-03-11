@@ -16,6 +16,7 @@
     "iterate_2": "yarn pre-build && echo DONE ESBUILDN && echo START && yarn start",
     "debug-in-chrome": "electron . --inspect-brk",
     "build-types": " TODO - ask DXM wtf to pass to tsc! ",
+    "pre-test": "yarn node test-infrastructure/copyCssToJestDir.js",
     "test": "jest  --verbose --runInBand --detectOpenHandles --forceExit --bail=false",
     "test-watch": "jest --watch"
   },

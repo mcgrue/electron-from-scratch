@@ -1,13 +1,11 @@
 import React, {useState, MouseEvent} from 'react';
-// @ts-ignore
-import css from './MenuBar.module.css';
 import {ContextMenu} from '../../ui/widgets/ContextMenu';
 import isElectron from 'is-electron';
-//import {ipcRenderer} from 'electron';
-//const electron = isElectron() ? {ipcRenderer} : {ipcRenderer: {send: () => {}}};
-//const electron = {ipcRenderer: {send: () => {}}};
 
 import {WidgetInfo, Vec2xy} from '../../../../types/global';
+
+// @ts-ignore
+import css from './MenuBar.module.css';
 
 interface MenuBarProps {
   dispatch: ({}: any) => void;

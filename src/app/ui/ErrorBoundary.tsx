@@ -1,4 +1,4 @@
-import React, {Component, ErrorInfo} from 'react';
+import React /*{Component, ErrorInfo}*/ from 'react';
 
 type ErrorBoundaryProps = {
   children: React.ReactNode;
@@ -19,15 +19,15 @@ function ErrorFallback() {
 }
 
 function ErrorBoundary({children}: ErrorBoundaryProps) {
-  const [state, setState] = React.useState<ErrorBoundaryState>({
+  const [state /*, setState*/] = React.useState<ErrorBoundaryState>({
     hasError: false,
     error: null,
   });
 
-  const componentDidCatch = (error: Error, errorInfo: ErrorInfo) => {
-    console.error(error, errorInfo);
-    setState({hasError: true, error});
-  };
+  // const componentDidCatch = (error: Error, errorInfo: ErrorInfo) => {
+  //   console.error(error, errorInfo);
+  //   setState({hasError: true, error});
+  // };
 
   if (state.hasError) {
     return <ErrorFallback />;

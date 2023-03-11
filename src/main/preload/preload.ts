@@ -1,5 +1,7 @@
 /* special file. Whee. */
-const {contextBridge, ipcRenderer, ipcMain} = require('electron');
+const {contextBridge, ipcRenderer /*, ipcMain*/} = require('electron');
+
+console.log('preload.ts!');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   appClose: () => {
@@ -12,3 +14,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.send('app-maximize');
   },
 });
+
+export {};

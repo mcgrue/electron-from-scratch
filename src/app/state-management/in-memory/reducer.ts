@@ -3,7 +3,8 @@
 //import toolsReducer from './reducers/tools.reducer.js';
 //import widgetsReducer from './reducers/widgets.reducer.js';
 
-export default function reducer(state, action, ...rest) {
+export default function reducer(state: any, action: any, ...rest: any[]) {
+  console.log(state, action, rest);
   return {
     // tools: toolsReducer(state && state.tools, action, ...rest),
     // documents: documentsReducer(state && state.documents, action, ...rest),
