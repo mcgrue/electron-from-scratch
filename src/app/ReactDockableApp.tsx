@@ -242,7 +242,7 @@ function App() {
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'row',
-            height: 'calc(100vh - 128px)',
+            height: 'calc(100vh - 117px)',
           }}
         >
           <ToolBar
@@ -255,10 +255,11 @@ function App() {
             key={'main_workspace'}
             style={{
               flexGrow: 1,
-              maxWidth: `calc(100% - 47px)`,
+              // maxWidth: `calc(100% - 47px)`,
 
-              margin: '1px 0 0 1px',
-              // margin: 3,
+              // margin: "1px 0 0 1px",
+              // boxSizing: "border-box",
+              padding: 1,
             }}
             initialPanelState={panelState}
             setPanelState={setPanelState}
@@ -266,6 +267,7 @@ function App() {
             setDocumentState={setDocumentState}
             documents={getCurrentDocuments()}
             panels={getCurrentPanels()}
+            themeClass={'nullTheme'}
           />
         </div>
         <StatusBar initialStatuses={['Welcome to the Breaditor', '❤', '🦵']} />
