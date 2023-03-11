@@ -7,7 +7,8 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
-  testEnvironment: 'jsdom',
+  cache: false,
+  //testEnvironment: 'jsdom',
   transform: {
     '.+\\.(ts|tsx|js|jsx)$': 'ts-jest',
     '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',

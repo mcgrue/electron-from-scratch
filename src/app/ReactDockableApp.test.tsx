@@ -46,8 +46,13 @@ describe('App', () => {
     expect(screen.queryByText('Layers Panel')).toBeNull();
 
     userEvent.click(getByText('Test'));
+
     await waitFor(() => screen.findByTestId('breaditor-menubar-contextmenu'));
     userEvent.click(getByText('Panels on'));
+
+    const obj = screen.getByTestId('breaditor-browser-app');
+    /* @ts-ignore */
+    screenDebugToAnsiFile('FUCK.ansi', screen, obj);
 
     await waitFor(() => screen.findByText('Layers Panel')); // this should fail, needs to be updated to new panel that exists
   });

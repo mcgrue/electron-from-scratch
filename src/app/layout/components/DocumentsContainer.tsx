@@ -17,7 +17,10 @@ const DocumentsContainer: React.FC<DocumentsContainerProps> = (props) => {
   dispatch = dispatch;
 
   return (
-    <div style={{display: 'flex', flexGrow: 1, width: '100%', height: '100%'}}>
+    <div
+      style={{display: 'flex', flexGrow: 1, width: '100%', height: '100%'}}
+      data-testid="breaditor-documents-container"
+    >
       <Dockable
         initialState={state.documents.workspace}
         spacing={3}
