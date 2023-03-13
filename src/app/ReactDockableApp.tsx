@@ -31,11 +31,6 @@ import css from './ReactDockableApp.module.css';
 
 let docLoaded = false;
 
-addDocument(mapMaker('Map A'));
-addDocument(textMaker('Text B'));
-addDocument(spriteMaker('Sprite C'));
-addDocument(mapMaker('Map D'));
-
 function createInitialPanelState(): PanelState[] {
   if (!docLoaded) return [];
 
@@ -138,6 +133,15 @@ function getCurrentDocuments(): DocumentInfo[] {
   return getDocumentInfo();
 }
 
+type FakeStateFn = (a: any) => void;
+function _TEST_setStateHandlers(
+  __setPanelState: FakeStateFn,
+  __setDocPanelState: FakeStateFn,
+) {
+  _setPanelState = __setPanelState;
+  _setDocPanelState = __setDocPanelState;
+}
+
 let _setPanelState: any;
 let _setDocPanelState: any;
 
@@ -167,6 +171,8 @@ function setOnOrOff(onOrOff: boolean) {
     newDocState = [];
   }
 
+  console.log(newPanelState);
+
   updateDocumentManagerState(newDocState, newPanelState);
 }
 
@@ -174,6 +180,9 @@ function updateDocumentManagerState(
   documentState: PanelState[],
   panelState: PanelState[],
 ) {
+  if (!_setPanelState) {
+    debugger;
+  }
   _setPanelState(panelState);
   _setDocPanelState(documentState);
 }
@@ -280,6 +289,11 @@ function init() {
 
   const root = createRoot(domNode);
 
+  addDocument(mapMaker('Map A'));
+  addDocument(textMaker('Text B'));
+  addDocument(spriteMaker('Sprite C'));
+  addDocument(mapMaker('Map D'));
+
   root.render(<App />);
 }
 
@@ -293,4 +307,5 @@ export {
   updateDocumentManagerState,
   createInitialPanelInfoForDocumentType,
   getDocumentState,
+  _TEST_setStateHandlers,
 };

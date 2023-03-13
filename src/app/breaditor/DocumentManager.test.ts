@@ -5,7 +5,7 @@
 import {mapMaker} from '../breaditor/documents/MapDocument';
 import {spriteMaker} from '../breaditor/documents/SpriteDocument';
 import {textMaker} from '../breaditor/documents/TextDocument';
-
+import {_TEST_setStateHandlers} from '../ReactDockableApp';
 import {
   _TEST_reset,
   activeDocument,
@@ -18,6 +18,14 @@ import {
 } from './DocumentManager';
 
 beforeEach(() => {
+  _TEST_setStateHandlers(
+    (a: any) => {
+      a = a;
+    },
+    (b: any) => {
+      b = b;
+    },
+  );
   _TEST_reset();
 });
 

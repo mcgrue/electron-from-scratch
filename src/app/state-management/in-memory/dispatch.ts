@@ -19,10 +19,20 @@ type DocumentNewMessage = {
   type: 'DOC_CREATE_NEW';
 } & DispatchMessage;
 
+function _TEST_CLEAR() {
+  // @ts-ignore
+  _TEST_CAPTURE = (any: any) => {};
+}
+
+// @ts-ignore
+let _TEST_CAPTURE = function _TEST_CAPTURE(any: any) {}; // blank in production
+
 type ValidDispatchMessage = TestMessage | DocumentMessage | DocumentNewMessage;
 
 const dispatch = (message: ValidDispatchMessage) => {
-  //console.info('DISPATCHING', message);
+  _TEST_CAPTURE(message);
+
+  console.info('DISPATCHING', message);
   switch (message.type) {
     case 'TEST_ON':
       setOnOrOff(true);
@@ -38,4 +48,4 @@ const dispatch = (message: ValidDispatchMessage) => {
   }
 };
 
-export {dispatch};
+export {dispatch, _TEST_CAPTURE, _TEST_CLEAR};

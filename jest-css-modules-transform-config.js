@@ -5,16 +5,16 @@ const additionalResolvePath = path.resolve(
   'additional_modules',
 );
 
-const fs = require('fs');
+// const fs = require('fs');
 
-// Specify the path and file name for the new file
-const filePath = './FUCKING_FUCK';
+// // Specify the path and file name for the new file
+// const filePath = './FUCKING_FUCK';
 
-// Use the writeFile() method to create the file
-fs.writeFile(filePath, '', function (err) {
-  if (err) throw err;
-  console.log('File created!');
-});
+// // Use the writeFile() method to create the file
+// fs.writeFile(filePath, '', function (err) {
+//   if (err) throw err;
+//   console.log('File created!');
+// });
 
 console.log('I am jest-css-modules-transform-config.js...');
 
@@ -31,9 +31,9 @@ module.exports = {
   },
   postcssConfig: {
     plugins: [
-      require('autoprefixer')({
-        browsers: ['Chrome 68', 'Firefox 62', 'Safari 12'],
-      }),
+      // require('autoprefixer')({
+      //   browsers: ['Chrome 68', 'Firefox 62', 'Safari 12'],
+      // }),
     ],
   },
 };
