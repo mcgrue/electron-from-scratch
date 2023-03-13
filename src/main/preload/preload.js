@@ -14,5 +14,3 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.send('app-maximize');
   },
 });
-
-export {};
