@@ -7,7 +7,7 @@ on: ['workflow_dispatch', 'push', 'pull_request'] #hm, is there a better one?
 # on... "publish" doesnt work?
 
 env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.SECRET }}
 
 name: Build
 jobs:
