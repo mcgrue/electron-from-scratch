@@ -7,7 +7,7 @@ on: ['workflow_dispatch', 'push', 'pull_request'] #hm, is there a better one?
 # on... "publish" doesnt work?
 
 env:
-  GH_TOKEN: ${{ secrets.SECRET }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 name: Build
 jobs:
@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+        with:
+          repository: breadbros/react-dockable-ts
+          token: ${{ secrets.SECRET }}
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
         with:
