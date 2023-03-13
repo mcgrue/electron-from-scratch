@@ -5552,9 +5552,9 @@ react-devtools@^4.27.2:
     react-devtools-core "4.27.2"
     update-notifier "^2.1.0"
 
-"react-dockable-ts@https://github.com/breadbros/react-dockable-ts#v0.0.18":
+"react-dockable-ts@https://github.com/breadbros/react-dockable-ts2#v0.0.18":
   version "0.1.0"
-  resolved "https://github.com/breadbros/react-dockable-ts#3e90c85edc4252b2e8f7566c5defc6976bd40b45"
+  resolved "https://github.com/breadbros/react-dockable-ts2#3e90c85edc4252b2e8f7566c5defc6976bd40b45"
   dependencies:
     autoprefixer "^10.4.13"
     postcss-url "^10.1.3"
