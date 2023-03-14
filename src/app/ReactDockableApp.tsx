@@ -27,7 +27,7 @@ import {spriteMaker} from './breaditor/documents/SpriteDocument';
 import {
   breaditorReducer,
   getInitialState,
-} from './state-management/in-memory/reducer';
+} from './state-management/in-memory/main_reducer';
 
 import {DocumentInfo, WidgetInfo} from '../../types/global';
 
