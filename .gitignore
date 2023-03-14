@@ -8,5 +8,12 @@ dist/
 electronbuild-resources/
 electronbuild-output/
 
+fuck-tsc/
+
 yarn-error.log
 .vscode
+.err
+.out
+.iterate_pidfile
+.env
+target/

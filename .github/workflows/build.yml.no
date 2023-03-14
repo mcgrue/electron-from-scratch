@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+        with:
+          repository: breadbros/react-dockable-ts
+          token: ${{ secrets.SECRET }}
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
         with:

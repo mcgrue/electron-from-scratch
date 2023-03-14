@@ -1,0 +1,30 @@
+[36m<div[39m
+  [33mclass[39m=[32m"contextMenu"[39m
+  [33mdata-testid[39m=[32m"breaditor-menubar-contextmenu"[39m
+  [33mstyle[39m=[32m"left: 0px; top: 0px;"[39m
+[36m>[39m
+  [36m<div[39m
+    [33mclass[39m=[32m"contextMenuItem"[39m
+  [36m>[39m
+    [36m<div>[39m
+      [0mPanels on[0m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mstyle[39m=[32m"margin-left: 16px; color: rgb(102, 102, 102);"[39m
+    [36m>[39m
+      [0mCtrl+Z[0m
+    [36m</div>[39m
+  [36m</div>[39m
+  [36m<div[39m
+    [33mclass[39m=[32m"contextMenuItem"[39m
+  [36m>[39m
+    [36m<div>[39m
+      [0mPanels off[0m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mstyle[39m=[32m"margin-left: 16px; color: rgb(102, 102, 102);"[39m
+    [36m>[39m
+      [0mCtrl+Z[0m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</div>[39m
