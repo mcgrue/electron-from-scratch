@@ -19,21 +19,17 @@ function createReducer<S extends GenericState, A extends GenericAction>(
   const myHandlers = handlers;
   const myInitialState = initialState;
 
-  return function (state?: S, action?: A): S {
-    if (state == null && action == null) {
+  return function (state: S = myInitialState, action?: A): S {
+    if (action == null) {
       return myInitialState;
     } else {
-      if (state != null) {
-        if (action && myHandlers.hasOwnProperty(action.type)) {
-          return myHandlers[action.type](state, action);
-        } else {
-          // console.error(`Unhandled action: ${action.type} `);
-        }
-        return state;
+      if (action && myHandlers.hasOwnProperty(action.type)) {
+        return myHandlers[action.type](state, action);
+      } else {
+        // console.error(`Unhandled action: ${action.type} `);
       }
+      return state;
     }
-
-    throw new Error('This should never happen!');
   };
 }
 
