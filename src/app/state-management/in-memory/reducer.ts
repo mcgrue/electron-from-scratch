@@ -38,6 +38,10 @@ function createReducer(
   };
 }
 
+console.log(
+  `inside reducer.ts's transpiled form the value of createReducer is ${createReducer}`,
+);
+
 const breaditorReducer = createReducer(
   {},
   {

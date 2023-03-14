@@ -1,9 +1,15 @@
-/*
-import {createReducer, GenericAction, Reducer} from '../reducer';
+import {createReducer /*GenericAction, Reducer*/} from '../reducer';
 
-import {TOOLS} from '../../../breaditor/tools/constants'; //TODO: This should be in *THIS* file, right?
+// import {TOOLS} from '../../../breaditor/tools/constants'; //TODO: This should be in *THIS* file, right?
 // TODO: and should have a concrete union type I think?
 
+if (createReducer == undefined) {
+  console.log('222222: My life is a lie.');
+} else {
+  console.log('222222: The world is like, square, maaaaan.');
+}
+
+/*
 interface ToolState {
   activeTool: number; // Tool index, really
   tool: any; // how to type this?
@@ -30,7 +36,8 @@ interface ToolActionIncB extends GenericAction {
 
 type ToolAction = ToolActionIncA | ToolActionIncB;
 
-const toolsReducer: Reducer<ToolState, ToolAction> = createReducer(
+/*
+let toolsReducer: Reducer<ToolState, ToolAction> = createReducer(
   initialToolState,
   {
     INC_A: (state, action: ToolActionIncA) => {
@@ -43,6 +50,21 @@ const toolsReducer: Reducer<ToolState, ToolAction> = createReducer(
 );
 */
 
+/*
+let bar: Reducer<ToolState, ToolAction>;
+bar = function (a: any, b: any) {
+  console.warn(b);
+  return a;
+};
+*/
+
+console.log('createReducer is', createReducer);
+
+// console.log(bar);
+// console.log(initialToolState);
+
+const foo = createReducer({}, {});
+
 const toolsReducer = {};
 
-export {toolsReducer};
+export {toolsReducer, foo};
