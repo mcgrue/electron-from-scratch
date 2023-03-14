@@ -6,23 +6,19 @@ type GenericAction = {
   type: string;
 };
 
-type GenericReducerMap = {
-  [key: string]: (state: GenericState, action: GenericAction) => GenericState;
+type ReducerMap<S extends GenericState, A extends GenericAction> = {
+  [key: string]: (state: S, action: A) => S;
 };
 
 type Reducer<S, A> = (state: S, action: A) => S;
-type GenericReducer = Reducer<GenericState, GenericAction>; //TODO: GenericReducer will die shortly.  But for now...
 
-function createReducer(
-  initialState: GenericState,
-  handlers: GenericReducerMap,
-): GenericReducer {
+function createReducer<S extends GenericState, A extends GenericAction>(
+  initialState: S,
+  handlers: ReducerMap<S, A>,
+): Reducer<S, A> {
   const myHandlers = handlers;
 
-  return function (
-    state = initialState,
-    action: GenericAction,
-  ): GenericReducerMap {
+  return function (state: S = initialState, action: A): S {
     if (action && myHandlers.hasOwnProperty(action.type)) {
       return myHandlers[action.type](state, action);
     } else {
@@ -32,12 +28,5 @@ function createReducer(
   };
 }
 
-export type {
-  StringToAnyMap,
-  GenericState,
-  GenericAction,
-  GenericReducerMap,
-  Reducer,
-  GenericReducer,
-};
+export type {StringToAnyMap, Reducer};
 export {createReducer};
