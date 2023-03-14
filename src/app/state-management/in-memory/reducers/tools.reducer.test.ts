@@ -4,6 +4,13 @@ import {
   /*Reducer /*GenericAction, Reducer*/
 } from './tools.reducer';
 
+test('toolsReducer INIT', () => {
+  const result = toolsReducer();
+
+  expect(result.a).toBe(0);
+  expect(result.b).toBe(0);
+});
+
 test('toolsReducer INC_A', () => {
   const result = toolsReducer(initialToolState, {type: 'INC_A', foo: 2});
 
